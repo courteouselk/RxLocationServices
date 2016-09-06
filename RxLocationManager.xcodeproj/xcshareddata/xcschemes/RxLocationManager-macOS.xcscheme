@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "BA6829841D7B0796009E8883"
-               BuildableName = "RxLocationManager-macOS.framework"
+               BuildableName = "RxLocationManager.framework"
                BlueprintName = "RxLocationManager-macOS"
                ReferencedContainer = "container:RxLocationManager.xcodeproj">
             </BuildableReference>
@@ -46,7 +46,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BA6829841D7B0796009E8883"
-            BuildableName = "RxLocationManager-macOS.framework"
+            BuildableName = "RxLocationManager.framework"
             BlueprintName = "RxLocationManager-macOS"
             ReferencedContainer = "container:RxLocationManager.xcodeproj">
          </BuildableReference>
@@ -64,7 +64,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "BA6829841D7B0796009E8883"
-            BuildableName = "RxLocationManager-macOS.framework"
+            BuildableName = "RxLocationManager.framework"
             BlueprintName = "RxLocationManager-macOS"
             ReferencedContainer = "container:RxLocationManager.xcodeproj">
          </BuildableReference>
