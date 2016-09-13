@@ -15,10 +15,17 @@
 		BA6829B41D7B19A4009E8883 /* RxLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B21D7B19A4009E8883 /* RxLocationManager.swift */; };
 		BA6829B91D7B2D38009E8883 /* RxLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */; };
 		BA6829BA1D7B2D38009E8883 /* RxLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */; };
-		BA6829BC1D7B2F33009E8883 /* RxSignificantChangeLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BB1D7B2F33009E8883 /* RxSignificantChangeLocationTracker.swift */; };
-		BA6829BD1D7B2F33009E8883 /* RxSignificantChangeLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BB1D7B2F33009E8883 /* RxSignificantChangeLocationTracker.swift */; };
-		BA6829BF1D7B2FE7009E8883 /* RxStandardLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BE1D7B2FE7009E8883 /* RxStandardLocationTracker.swift */; };
-		BA6829C01D7B2FE7009E8883 /* RxStandardLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BE1D7B2FE7009E8883 /* RxStandardLocationTracker.swift */; };
+		BA6829BC1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */; };
+		BA6829BD1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */; };
+		BA6829BF1D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */; };
+		BA6829C01D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */; };
+		BA79E0B51D87352800ADF91C /* RxLocationTracker+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79E0B41D87352800ADF91C /* RxLocationTracker+iOS.swift */; };
+		BA79E0B71D87354200ADF91C /* RxLocationTracker+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79E0B61D87354200ADF91C /* RxLocationTracker+macOS.swift */; };
+		BAEFC5F21D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */; };
+		BAEFC5F31D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */; };
+		BAEFC5F51D88516000DE8F0D /* RxDeferredTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */; };
+		BAEFC5F61D88516000DE8F0D /* RxDeferredTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */; };
+		BAF82A2D1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF82A2C1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -37,9 +44,13 @@
 		BA6829AF1D7B16F2009E8883 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		BA6829B21D7B19A4009E8883 /* RxLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxLocationManager.swift; path = Sources/RxLocationManager.swift; sourceTree = "<group>"; };
 		BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxLocationTracker.swift; path = Sources/RxLocationTracker.swift; sourceTree = "<group>"; };
-		BA6829BB1D7B2F33009E8883 /* RxSignificantChangeLocationTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxSignificantChangeLocationTracker.swift; path = Sources/RxSignificantChangeLocationTracker.swift; sourceTree = "<group>"; };
-		BA6829BE1D7B2FE7009E8883 /* RxStandardLocationTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxStandardLocationTracker.swift; path = Sources/RxStandardLocationTracker.swift; sourceTree = "<group>"; };
-		BAC18A351D7E300000DAF35C /* MyPlayground.playground */ = {isa = PBXFileReference; lastKnownFileType = file.playground; path = MyPlayground.playground; sourceTree = "<group>"; };
+		BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxSignificantLocationChangeTracker.swift; path = Sources/RxSignificantLocationChangeTracker.swift; sourceTree = "<group>"; };
+		BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxStandardTracker.swift; path = Sources/RxStandardTracker.swift; sourceTree = "<group>"; };
+		BA79E0B41D87352800ADF91C /* RxLocationTracker+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+iOS.swift"; path = "Sources/RxLocationTracker+iOS.swift"; sourceTree = "<group>"; };
+		BA79E0B61D87354200ADF91C /* RxLocationTracker+macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+macOS.swift"; path = "Sources/RxLocationTracker+macOS.swift"; sourceTree = "<group>"; };
+		BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+Delegate.swift"; path = "Sources/RxLocationTracker+Delegate.swift"; sourceTree = "<group>"; };
+		BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxDeferredTracker.swift; path = Sources/RxDeferredTracker.swift; sourceTree = "<group>"; };
+		BAF82A2C1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLAuthorizationStatus.swift; path = Sources/CLAuthorizationStatus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +76,6 @@
 		BA6829691D7AA798009E8883 = {
 			isa = PBXGroup;
 			children = (
-				BAC18A351D7E300000DAF35C /* MyPlayground.playground */,
 				BA68299C1D7B0EDC009E8883 /* Documentation */,
 				BA68299F1D7B0EF2009E8883 /* Carthage */,
 				BA68297F1D7AA7C1009E8883 /* Support */,
@@ -88,10 +98,9 @@
 		BA68297E1D7AA7BC009E8883 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BA79E0B81D87764B00ADF91C /* LocationTracker */,
 				BA6829B21D7B19A4009E8883 /* RxLocationManager.swift */,
-				BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */,
-				BA6829BE1D7B2FE7009E8883 /* RxStandardLocationTracker.swift */,
-				BA6829BB1D7B2F33009E8883 /* RxSignificantChangeLocationTracker.swift */,
+				BAF82A2C1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -140,6 +149,20 @@
 				BA6829AD1D7B16BD009E8883 /* RxSwift.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		BA79E0B81D87764B00ADF91C /* LocationTracker */ = {
+			isa = PBXGroup;
+			children = (
+				BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */,
+				BA79E0B41D87352800ADF91C /* RxLocationTracker+iOS.swift */,
+				BA79E0B61D87354200ADF91C /* RxLocationTracker+macOS.swift */,
+				BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */,
+				BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */,
+				BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */,
+				BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */,
+			);
+			name = LocationTracker;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -206,14 +229,16 @@
 		BA68296A1D7AA798009E8883 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0730;
+				LastUpgradeCheck = 0800;
 				ORGANIZATIONNAME = northernForest;
 				TargetAttributes = {
 					BA6829721D7AA798009E8883 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 					BA6829841D7B0796009E8883 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 					};
 				};
 			};
@@ -257,9 +282,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA6829BC1D7B2F33009E8883 /* RxSignificantChangeLocationTracker.swift in Sources */,
+				BAEFC5F21D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */,
+				BA6829BC1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */,
 				BA6829B31D7B19A4009E8883 /* RxLocationManager.swift in Sources */,
-				BA6829BF1D7B2FE7009E8883 /* RxStandardLocationTracker.swift in Sources */,
+				BA79E0B51D87352800ADF91C /* RxLocationTracker+iOS.swift in Sources */,
+				BA6829BF1D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */,
+				BAEFC5F51D88516000DE8F0D /* RxDeferredTracker.swift in Sources */,
+				BAF82A2D1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift in Sources */,
 				BA6829B91D7B2D38009E8883 /* RxLocationTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -268,10 +297,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA6829BD1D7B2F33009E8883 /* RxSignificantChangeLocationTracker.swift in Sources */,
+				BAEFC5F61D88516000DE8F0D /* RxDeferredTracker.swift in Sources */,
+				BA6829BD1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */,
 				BA6829B41D7B19A4009E8883 /* RxLocationManager.swift in Sources */,
-				BA6829C01D7B2FE7009E8883 /* RxStandardLocationTracker.swift in Sources */,
+				BA6829C01D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */,
+				BAEFC5F31D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */,
 				BA6829BA1D7B2D38009E8883 /* RxLocationTracker.swift in Sources */,
+				BA79E0B71D87354200ADF91C /* RxLocationTracker+macOS.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -292,8 +324,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -316,7 +350,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -336,8 +370,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "";
@@ -354,6 +390,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -382,6 +419,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s x86_64 i386";
 			};
@@ -409,6 +447,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "arm64 armv7 armv7s x86_64 i386";
 			};
@@ -441,6 +480,7 @@
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 3.0;
 				VALID_ARCHS = "i386 x86_64";
 			};
 			name = Debug;
@@ -470,6 +510,7 @@
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
+				SWIFT_VERSION = 3.0;
 				VALIDATE_PRODUCT = YES;
 				VALID_ARCHS = "i386 x86_64";
 			};

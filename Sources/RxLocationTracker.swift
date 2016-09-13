@@ -13,117 +13,261 @@ public class RxLocationTracker {
 
     // MARK: - Public API
 
-    /// Creates a standard location tracker instance.
-    ///
-    /// The standard location service is most appropriate for apps that deliver location-related
-    /// information directly to the user but it may be used by other types of apps too.
-    ///
-    /// Never specify an accuracy value greater than what you need. Core Location uses the accuracy
-    /// value you specify to manage power better. A higher degree of accuracy requires more precise
-    /// hardware like GPS, which consumes more power.
-
-    public static func standardTracker(desiredAccuracy desiredAccuracy: CLLocationAccuracy, distanceFilter: Double) -> RxLocationTracker {
-        return RxStandardLocationTracker(desiredAccuracy: desiredAccuracy, distanceFilter: distanceFilter)
-    }
-
-    /// Creates a signingicant-change tracker instance.
-    ///
-    /// The significant location change service is better suited for apps that want to get the
-    /// user’s initial location and then only want to know when that location changes. This service
-    /// requires the presence of cellular hardware and delivers events less frequently than the
-    /// standard location services.
-
-    public static func significantChangeTracker() -> RxLocationTracker {
-        return RxSignificantChangeLocationTracker()
-    }
-
     /// The accuracy of the location data.
     ///
-    /// - seealso: Documentation for [`CLLocationManager.desiredAccuracy`](xcdoc://?url=developer.apple.com/library/etc/redirect/xcode/ios/1151/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html).
+    /// - seealso: [CLLocationManager.desiredAccuracy](apple-reference-documentation://hsdIn9h8NI).
 
-    public var desiredAccuracy: CLLocationAccuracy { return locationManager.desiredAccuracy }
+    public var desiredAccuracy: CLLocationAccuracy { return manager.desiredAccuracy }
 
     /// The minimum distance (measured in meters) a device must move horizontally before an update event is generated.
     ///
-    /// - seealso: Documentation for [`CLLocationManager.distanceFilter`](xcdoc://?url=developer.apple.com/library/etc/redirect/xcode/ios/1151/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html).
+    /// - seealso: [CLLocationManager.distanceFilter](apple-reference-documentation://hsvBsx6Fhd).
 
-    public var distanceFilter: Double { return locationManager.distanceFilter }
+    public var distanceFilter: Double { return manager.distanceFilter }
 
+    #if os(iOS)
+
+    /// The type of user activity associated with the location updates.
+    ///
+    /// - seealso: [CLLocationManager.activityType](apple-reference-documentation://hsiIxqp5lV)
+
+    public var activityType: CLActivityType {
+        get { return manager.activityType }
+        set { manager.activityType = newValue }
+    }
+
+    /// A Boolean value indicating whether the tracker may pause location updates.
+    ///
+    /// - seealso: [CLLocationManager.pausesLocationUpdatesAutomatically](apple-reference-documentation://hsrH9OEXi4).
+
+    public var pausesLocationUpdatesAutomatically: Bool {
+        get { return manager.pausesLocationUpdatesAutomatically }
+        set { manager.pausesLocationUpdatesAutomatically = newValue }
+    }
+
+    #endif
+    
     /// The most recently retrieved user location.
     ///
     /// The value of this property is `nil` if no location data has ever been retrieved.
     ///
-    /// - seealso: Documentation for [`CLLocationManager.location`](xcdoc://?url=developer.apple.com/library/etc/redirect/xcode/ios/1151/documentation/CoreLocation/Reference/CLLocationManager_Class/index.html)
+    /// - seealso: [CLLocationManager.location](apple-reference-documentation://hspJvThCV9).
 
     public var location: CLLocation? {
-        return locationManager.location
+        return manager.location
     }
 
-    /// Reactive wrapper for most recently retreived user location.
+    /// Reactive wrapper for the most recently retrieved user location.
 
     public var rx_location: Observable<CLLocation> {
-        return _rx_location.asObservable()
+        return _rx_location
+            .observeOn(RxLocationManager.serialScheduler)
+            .do(onSubscribe: {
+                self.notifySubscribed()
+            })
+            .do(onDispose: {
+                self.notifyUnsubscribed()
+            })
+            .do(onError: { error in
+                self.stopTracking()
+            })
+    }
+
+    /// Reactive wrapper for paused state of location updates delivery.
+    ///
+    /// When the location manager detects that the device’s location is not changing, it can pause 
+    /// the delivery of updates in order to shut down the appropriate hardware and save power.
+    ///
+    /// - seealso: 
+    ///   - [CLLocationManager.locationManagerDidPauseLocationUpdates(_:)](apple-reference-documentation://hsbKLYxMg0)
+    ///   - [CLLocationManager.locationManagerDidResumeLocationUpdates(_:)](apple-reference-documentation://hsRKsf1ayS)
+
+    public var rx_paused: Observable<Bool> {
+        return _rx_paused.asObservable()
     }
 
     // MARK: - Internal API
 
-    class LocationDelegate: NSObject {
-        unowned let tracker: RxLocationTracker
-        init(tracker: RxLocationTracker) {
-            self.tracker = tracker
-        }
-    }
-
-    // MARK:
-
-    let locationManager = CLLocationManager()
-    var locationDelegate: LocationDelegate! = nil
     let _rx_location = ReplaySubject<CLLocation>.create(bufferSize: 1)
+    let _rx_error = ReplaySubject<Error>.create(bufferSize: 1)
+    let _rx_paused = ReplaySubject<Bool>.create(bufferSize: 1)
+
+    let manager = CLLocationManager()
+    var delegate: Delegate! = nil
+
+    let requestAuthorizeAlways: Bool
+
+    private var subscribersCount = 0
 
     // MARK:
 
-    init() {
-        locationDelegate = LocationDelegate(tracker: self)
-        locationManager.delegate = locationDelegate
+    init(requestAuthorizeAlways: Bool) {
+        self.requestAuthorizeAlways = requestAuthorizeAlways
+
+        delegate = Delegate(master: self)
+        manager.delegate = delegate
     }
 
     deinit {
-        stopMonitoring()
+        stopTracking()
     }
 
-    // MARK:
+    /// Starts tracking of the location.
 
-    func startMonitoring() { }
+    func startTracking() {
+        requestAuthorization()
 
-    func stopMonitoring() { }
+    }
 
-    // MARK:
+    /// Stops tracking of the location
 
-    func updateLocations(locations: [CLLocation]) {
+    func stopTracking() {
+        // To be overriden
+    }
+
+    /// Once `rx_location` observable is subscribed to, this is called.
+
+    final func notifySubscribed() {
+        assert(subscribersCount >= 0, "Subscribers count can not be negative")
+        subscribersCount += 1
+        if subscribersCount == 1 {
+            startTracking()
+        }
+    }
+
+    /// Once `rx_location` observable is disposed, this is called.
+
+    final func notifyUnsubscribed() {
+        subscribersCount -= 1
+        assert(subscribersCount >= 0, "Subscribers count can not be negative")
+        if subscribersCount == 0 {
+            stopTracking()
+        }
+    }
+
+    // MARK: - Delegate's API
+
+    /// Respond to the updated location events.
+
+    func updateLocations(_ locations: [CLLocation]) {
         locations.forEach {
             _rx_location.onNext($0)
         }
     }
 
-}
+    /// Respond to the event of a change in the authorization status.
 
-// MARK: - CLLocationManagerDelegate
+    func changeAuthorizationStatus(_ status: CLAuthorizationStatus) {
+        switch (status, requestAuthorizeAlways) {
 
-extension RxStandardLocationTracker.LocationDelegate: CLLocationManagerDelegate {
+        case (.restricted, _):
+            let error = RxLocationManager.Failure.locationServicesRestricted
+            _rx_error.onNext(error)
+            _rx_location.onError(error)
+
+
+        case (.denied, _):
+            let error = RxLocationManager.Failure.locationServicesDenied
+            _rx_error.onNext(error)
+            _rx_location.onError(error)
+
+        case (.authorizedWhenInUse, true):
+            let error = RxLocationManager.Failure.locationServicesAuthorizedWhenInUseOnly
+            _rx_error.onNext(error)
+            _rx_location.onError(error)
+
+        default:
+            break
+
+        }
+    }
+
+    /// Respond to the event of an error.
+
+    func failWithError(_ error: Error) {
+        _rx_error.onNext(error)
+        // _rx_location.onError(error)
+    }
+
+    /// Respond to the event of a pause in location updates.
+
+    func pauseLocationUpdates() {
+        _rx_paused.onNext(true)
+    }
+
+    /// Respond to the event of resumed location updates.
+
+    func resumeLocationUpdates() {
+        _rx_paused.onNext(false)
+    }
+
+    /// Respond to the event of deferred updates finish.
+
+    func finishDeferredUpdatesWithError(_ error: Error?) {
+        // Do nothing
+    }
 
     #if os(iOS)
 
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        tracker.updateLocations(locations)
+    // MARK: - iOS specific implementations
+
+    /// Checks current authorization, requests one if needed, throws an error if none is given.
+
+    func requestAuthorization() {
+        switch (CLLocationManager.authorizationStatus(), requestAuthorizeAlways) {
+
+        case (.restricted, _):
+            let error = RxLocationManager.Failure.locationServicesRestricted
+            _rx_error.onNext(error)
+            _rx_location.onError(error)
+
+        case (.denied, _):
+            let error = RxLocationManager.Failure.locationServicesDenied
+            _rx_error.onNext(error)
+            _rx_location.onError(error)
+
+        case (.authorizedWhenInUse, true):
+            let error = RxLocationManager.Failure.locationServicesAuthorizedWhenInUseOnly
+            _rx_error.onNext(error)
+            _rx_location.onError(error)
+
+        case (.notDetermined, true):
+            manager.requestAlwaysAuthorization()
+
+        case (.notDetermined, false):
+            manager.requestWhenInUseAuthorization()
+            
+        default:
+            break
+            
+        }
     }
 
-    #elseif os(OSX)
+    #elseif os(macOS)
 
-    func locationManager(manager: CLLocationManager, didUpdateLocations locations: [AnyObject]) {
-        guard let locations = locations as? [CLLocation] else { return }
-        tracker.updateLocations(locations)
+    // MARK: - macOS specific implementations
+
+    /// Checks current authorization, requests one if needed, throws an error if none is given.
+
+    func requestAuthorization() {
+        switch (CLLocationManager.authorizationStatus(), requestAuthorizeAlways) {
+
+        case (.restricted, _):
+            let error = RxLocationManager.Failure.locationServicesRestricted
+            _rx_error.onNext(error)
+            _rx_location.onError(error)
+
+        case (.denied, _):
+            let error = RxLocationManager.Failure.locationServicesDenied
+            _rx_error.onNext(error)
+            _rx_location.onError(error)
+
+        default:
+            break
+            
+        }
     }
-    
+
     #endif
-    
+
 }

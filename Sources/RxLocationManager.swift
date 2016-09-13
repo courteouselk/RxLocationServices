@@ -11,8 +11,28 @@ import RxSwift
 
 public final class RxLocationManager {
 
-    public static func standardLocationTracker() -> RxLocationTracker {
-        return RxLocationTracker()
+    enum Failure: Error {
+
+        /// App is denied to use location services. Please abort your attempt to use them.
+        case locationServicesDenied
+
+        /// Location services are restricted. Please abort your attempt to use them.
+        case locationServicesRestricted
+
+        /// App is authorized to use location services when in use only.
+        case locationServicesAuthorizedWhenInUseOnly
+
+        /// Standard location services are not available.
+        case standardLocationServicesUnavailable
+
+        /// Deferred location services are not available.
+        case defelledLocationServicesUnavailable
+
+        /// Significant location change services are not available.
+        case significantLocationChangeServicesUnavailable
+
     }
+
+    static let serialScheduler = SerialDispatchQueueScheduler.init(internalSerialQueueName: "nl.northernforest.rxlocationmanager")
 
 }
