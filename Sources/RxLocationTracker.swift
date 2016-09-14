@@ -106,6 +106,13 @@ public class RxLocationTracker {
             })
     }
 
+    /// Reactive wrapped for the errors sent by the location services.
+    /// 
+    /// Some of the errors that location services can sent are not critical and should not interrupt
+    /// the delivery of location updates.
+
+    public var rx_error: Observable<Error> { return _rx_error.asObservable() }
+    
     /// Reactive wrapper for paused state of location updates delivery.
     ///
     /// When the location manager detects that the device’s location is not changing, it can pause 

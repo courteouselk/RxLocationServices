@@ -28,8 +28,8 @@ extension RxLocationTracker {
     ///   - distanceFilter  : The minimum distance (measured in meters) a device must move
     ///                       horizontally before an update event is generated.
     ///   - requestAuthorizeAlways : Whether to requests permission to use location services
-    ///                              whenever the app is running or only while the app is in the 
-    ///                              foreground (default).
+    ///                              whenever the app is running (`true`) or only while the app is
+    ///                              in the foreground (`false`).  Default value is `false`.
     ///
     /// - seealso:
     ///   - [CLLocationManager](apple-reference-documentation://hs8c5staNS#overview)
@@ -87,8 +87,8 @@ extension RxLocationTracker {
     ///
     /// - parameters:
     ///   - requestAuthorizeAlways : Whether to requests permission to use location services
-    ///                              whenever the app is running or only while the app is in the
-    ///                              foreground (default).
+    ///                              whenever the app is running (`true`) or only while the app is
+    ///                              in the foreground (`false`).  Default value is `false`.
     ///
     /// - seealso:
     ///   - [CLLocationManager](apple-reference-documentation://hs8c5staNS#overview)
