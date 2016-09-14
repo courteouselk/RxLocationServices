@@ -39,7 +39,7 @@ final class RxDeferredTracker: RxLocationTracker {
         }
 
         if !CLLocationManager.deferredLocationUpdatesAvailable() {
-            let error = RxLocationTracker.Failure.defelledLocationServicesUnavailable
+            let error = RxLocationTracker.Failure.deferredLocationServicesUnavailable
             _rx_error.onNext(error)
             _rx_location.onError(error)
         }
