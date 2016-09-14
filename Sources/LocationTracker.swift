@@ -167,7 +167,11 @@ public class LocationTracker {
 
     final func notifySubscribed() {
         assert(subscribersCount >= 0, "Subscribers count can not be negative")
+
         subscribersCount += 1
+
+        print("subscribers count is \(subscribersCount)")
+
         if subscribersCount == 1 {
             startTracking()
         }
@@ -177,7 +181,11 @@ public class LocationTracker {
 
     final func notifyUnsubscribed() {
         subscribersCount -= 1
+
+        print("subscribers count is \(subscribersCount)")
+
         assert(subscribersCount >= 0, "Subscribers count can not be negative")
+
         if subscribersCount == 0 {
             stopTracking()
         }
