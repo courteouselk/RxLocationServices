@@ -1,8 +1,6 @@
 # Change Log
 
-## [0.0.1](https://github.com/courteouselk/RxReachability/releases/tag/0.0.1)
+## [0.0.1](https://github.com/courteouselk/RxLocationServices/releases/tag/0.0.1)
 
-- RxLocationTracker draft.
-- Fix framework search paths for iOS target.
-- iOS and macOS targets.
+- RxLocationTracker API.
 - MIT license (the project is in private repository, though, until it gets mature).
