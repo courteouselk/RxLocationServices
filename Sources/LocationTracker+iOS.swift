@@ -1,5 +1,5 @@
 //
-//  RxLocationTracker+iOS.swift
+//  LocationTracker+iOS.swift
 //  RxLocationServices
 //
 //  Created by Anton Bronnikov on 12/09/2016.
@@ -10,7 +10,7 @@
 
 import CoreLocation
 
-extension RxLocationTracker {
+extension LocationTracker {
 
     // MARK: Public API
 
@@ -36,8 +36,8 @@ extension RxLocationTracker {
 
     public static func standardTracker(desiredAccuracy: CLLocationAccuracy,
                                        distanceFilter: Double,
-                                       requestAuthorizeAlways: Bool = false) -> RxLocationTracker {
-        return RxStandardLocationTracker(
+                                       requestAuthorizeAlways: Bool = false) -> LocationTracker {
+        return StandardLocationTracker(
             desiredAccuracy: desiredAccuracy,
             distanceFilter: distanceFilter,
             requestAuthorizeAlways: requestAuthorizeAlways
@@ -69,8 +69,8 @@ extension RxLocationTracker {
 
     public static func deferredTracker(desiredAccuracy: CLLocationAccuracy,
                                        deferredDistance: CLLocationDistance,
-                                       deferredTimeout: TimeInterval) -> RxLocationTracker {
-        return RxDeferredTracker(
+                                       deferredTimeout: TimeInterval) -> LocationTracker {
+        return DeferredTracker(
             desiredAccuracy: desiredAccuracy,
             deferredDistance: deferredDistance,
             deferredTimeout: deferredTimeout
@@ -93,8 +93,8 @@ extension RxLocationTracker {
     /// - seealso:
     ///   - [CLLocationManager](apple-reference-documentation://hs8c5staNS#overview)
 
-    public static func significantChangeTracker(requestAuthorizeAlways: Bool = false) -> RxLocationTracker {
-        return RxSignificantLocationChangeTracker(requestAuthorizeAlways: requestAuthorizeAlways)
+    public static func significantChangeTracker(requestAuthorizeAlways: Bool = false) -> LocationTracker {
+        return SignificantLocationChangeTracker(requestAuthorizeAlways: requestAuthorizeAlways)
     }
 
 }

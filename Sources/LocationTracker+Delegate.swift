@@ -1,5 +1,5 @@
 //
-//  RxLocationTracker+Delegate.swift
+//  LocationTracker+Delegate.swift
 //  RxLocationServices
 //
 //  Created by Anton Bronnikov on 13/09/2016.
@@ -9,48 +9,48 @@
 import Foundation
 import CoreLocation
 
-extension RxLocationTracker {
+extension LocationTracker {
 
     class Delegate: NSObject, CLLocationManagerDelegate {
 
-        unowned let master: RxLocationTracker
+        unowned let master: LocationTracker
 
-        init(master: RxLocationTracker) {
+        init(master: LocationTracker) {
             self.master = master
         }
 
         func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
             assert(manager === master, "Only can handle calls for the master's location manager.")
-            master.updateLocations(locations)
+            master.handleUpdateLocations(locations)
         }
 
         func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
             assert(manager === master, "Only can handle calls for the master's location manager.")
-            master.changeAuthorizationStatus(status)
+            master.handleChangeAuthorizationStatus(status)
         }
 
         func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
             assert(manager === master, "Only can handle calls for the master's location manager.")
-            master.failWithError(error)
+            master.handleError(error)
         }
 
         #if os(iOS)
 
         func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
             assert(manager === master, "Only can handle calls for the master's location manager.")
-            master.pauseLocationUpdates()
+            master.handlePauseLocationUpdates()
         }
 
         func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
             assert(manager === master, "Only can handle calls for the master's location manager.")
-            master.resumeLocationUpdates()
+            master.handleResumeLocationUpdates()
         }
 
         #endif
 
         func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
             assert(manager === master, "Only can handle calls for the master's location manager.")
-            master.finishDeferredUpdatesWithError(error)
+            master.handleFinishDeferredUpdatesWithError(error)
         }
 
     }

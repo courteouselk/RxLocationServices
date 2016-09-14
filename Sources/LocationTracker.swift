@@ -1,5 +1,5 @@
 //
-//  RxLocationTracker.swift
+//  LocationTracker.swift
 //  RxLocationServices
 //
 //  Created by Anton Bronnikov on 03/09/2016.
@@ -21,7 +21,7 @@ import RxSwift
 /// - `UIBackgroundModes` includin the `location` value to receive location updates when the app is 
 ///    suspended.
 
-public class RxLocationTracker {
+public class LocationTracker {
 
     // MARK: Public API
 
@@ -90,47 +90,25 @@ public class RxLocationTracker {
 
     public var location: CLLocation? { return manager.location }
 
-    /// Reactive wrapper for the most recently retrieved user location.
-
-    public var rx_location: Observable<CLLocation> {
-        return _rx_location
-            .observeOn(RxLocationTracker.serialScheduler)
-            .do(onSubscribe: {
-                self.notifySubscribed()
-            })
-            .do(onDispose: {
-                self.notifyUnsubscribed()
-            })
-            .do(onError: { error in
-                self.stopTracking()
-            })
-    }
-
-    /// Reactive wrapped for the errors sent by the location services.
-    /// 
-    /// Some of the errors that location services can sent are not critical and should not interrupt
-    /// the delivery of location updates.
-
-    public var rx_error: Observable<Error> { return _rx_error.asObservable() }
-    
-    /// Reactive wrapper for paused state of location updates delivery.
+    /// The most recent error.
     ///
-    /// When the location manager detects that the device’s location is not changing, it can pause 
-    /// the delivery of updates in order to shut down the appropriate hardware and save power.
+    /// The value of this property is `nil` if no errors were encountered.
     ///
-    /// - seealso: 
-    ///   - [CLLocationManager.locationManagerDidPauseLocationUpdates(_:)](apple-reference-documentation://hsbKLYxMg0)
-    ///   - [CLLocationManager.locationManagerDidResumeLocationUpdates(_:)](apple-reference-documentation://hsRKsf1ayS)
+    /// Typically the error will be either `NSError` from `kCLErrorDomain` or `LocationTracker.Failure`.
 
-    public var rx_paused: Observable<Bool> { return _rx_paused.asObservable() }
+    public private (set) var error: Error? = nil
+
+    /// Reactive streams.
+
+    public private (set) var rx = Rx()
 
     // MARK: - Internal API
 
-    static let serialScheduler = SerialDispatchQueueScheduler.init(internalSerialQueueName: "nl.northernforest.rxlocationtracker")
+    static let serialScheduler = SerialDispatchQueueScheduler.init(internalSerialQueueName: "nl.northernforest.locationtracker")
 
-    let _rx_location = ReplaySubject<CLLocation>.create(bufferSize: 1)
-    let _rx_error = ReplaySubject<Error>.create(bufferSize: 1)
-    let _rx_paused = ReplaySubject<Bool>.create(bufferSize: 1)
+    let _location = ReplaySubject<CLLocation>.create(bufferSize: 1)
+    let _error = ReplaySubject<Error>.create(bufferSize: 1)
+    let _paused = ReplaySubject<Bool>.create(bufferSize: 1)
 
     let manager = CLLocationManager()
     var delegate: Delegate! = nil
@@ -144,6 +122,26 @@ public class RxLocationTracker {
     init(requestAuthorizeAlways: Bool) {
         self.requestAuthorizeAlways = requestAuthorizeAlways
 
+        let rx_location = _location
+            .observeOn(LocationTracker.serialScheduler)
+            .do(
+                onError: { _ in
+                    self.stopTracking()
+                },
+                onSubscribe: { 
+                    self.notifySubscribed()
+                },
+                onDispose: { 
+                    self.notifyUnsubscribed()
+                }
+        )
+
+        rx = Rx(
+            location: rx_location,
+            error: _error.asObservable(),
+            paused: _paused.asObservable()
+        )
+
         delegate = Delegate(master: self)
         manager.delegate = delegate
     }
@@ -155,14 +153,17 @@ public class RxLocationTracker {
     /// Starts tracking of the location.
 
     func startTracking() {
+        print("startTracking")
         requestAuthorization()
     }
 
     /// Stops tracking of the location
 
-    func stopTracking() { }
+    func stopTracking() {
+        print("stopTracking")
+    }
 
-    /// Once `rx_location` observable is subscribed to, this is called.
+    /// Once `rx.location` observable is subscribed to, this is called.
 
     final func notifySubscribed() {
         assert(subscribersCount >= 0, "Subscribers count can not be negative")
@@ -172,7 +173,7 @@ public class RxLocationTracker {
         }
     }
 
-    /// Once `rx_location` observable is disposed, this is called.
+    /// Once `rx.location` observable is disposed, this is called.
 
     final func notifyUnsubscribed() {
         subscribersCount -= 1
@@ -186,32 +187,25 @@ public class RxLocationTracker {
 
     /// Respond to the updated location events.
 
-    func updateLocations(_ locations: [CLLocation]) {
+    func handleUpdateLocations(_ locations: [CLLocation]) {
         locations.forEach {
-            _rx_location.onNext($0)
+            _location.onNext($0)
         }
     }
 
     /// Respond to the event of a change in the authorization status.
 
-    func changeAuthorizationStatus(_ status: CLAuthorizationStatus) {
+    func handleChangeAuthorizationStatus(_ status: CLAuthorizationStatus) {
         switch (status, requestAuthorizeAlways) {
 
         case (.restricted, _):
-            let error = RxLocationTracker.Failure.locationServicesRestricted
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
-
+            handleError(Failure.locationServicesRestricted)
 
         case (.denied, _):
-            let error = RxLocationTracker.Failure.locationServicesDenied
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
+            handleError(Failure.locationServicesDenied)
 
         case (.authorizedWhenInUse, true):
-            let error = RxLocationTracker.Failure.locationServicesAuthorizedWhenInUseOnly
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
+            handleError(Failure.locationServicesAuthorizedWhenInUseOnly)
 
         default:
             break
@@ -221,27 +215,32 @@ public class RxLocationTracker {
 
     /// Respond to the event of an error.
 
-    func failWithError(_ error: Error) {
-        _rx_error.onNext(error)
-        // _rx_location.onError(error)
+    func handleError(_ error: Error) {
+        _error.onNext(error)
+
+        if let error = error as? LocationTracker.Failure {
+            _location.onError(error)
+        }
+
+        self.error = error
     }
 
     /// Respond to the event of a pause in location updates.
 
-    func pauseLocationUpdates() {
-        _rx_paused.onNext(true)
+    func handlePauseLocationUpdates() {
+        _paused.onNext(true)
     }
 
     /// Respond to the event of resumed location updates.
 
-    func resumeLocationUpdates() {
-        _rx_paused.onNext(false)
+    func handleResumeLocationUpdates() {
+        _paused.onNext(false)
     }
 
     /// Respond to the event of deferred updates finish.
 
-    func finishDeferredUpdatesWithError(_ error: Error?) {
-        // Do nothing
+    func handleFinishDeferredUpdatesWithError(_ error: Error?) {
+        // This will be only implemented by DeferredTracker
     }
 
     #if os(iOS)
@@ -254,19 +253,13 @@ public class RxLocationTracker {
         switch (CLLocationManager.authorizationStatus(), requestAuthorizeAlways) {
 
         case (.restricted, _):
-            let error = RxLocationTracker.Failure.locationServicesRestricted
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
+            handleError(Failure.locationServicesRestricted)
 
         case (.denied, _):
-            let error = RxLocationTracker.Failure.locationServicesDenied
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
+            handleError(Failure.locationServicesDenied)
 
         case (.authorizedWhenInUse, true):
-            let error = RxLocationTracker.Failure.locationServicesAuthorizedWhenInUseOnly
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
+            handleError(Failure.locationServicesAuthorizedWhenInUseOnly)
 
         case (.notDetermined, true):
             manager.requestAlwaysAuthorization()
@@ -290,14 +283,10 @@ public class RxLocationTracker {
         switch (CLLocationManager.authorizationStatus(), requestAuthorizeAlways) {
 
         case (.restricted, _):
-            let error = RxLocationTracker.Failure.locationServicesRestricted
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
+            handleError(Failure.locationServicesRestricted)
 
         case (.denied, _):
-            let error = RxLocationTracker.Failure.locationServicesDenied
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
+            handleError(Failure.locationServicesDenied)
 
         default:
             break

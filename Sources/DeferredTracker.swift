@@ -1,5 +1,5 @@
 //
-//  RxDeferredTracker.swift
+//  DeferredTracker.swift
 //  RxLocationServices
 //
 //  Created by Anton Bronnikov on 13/09/2016.
@@ -11,7 +11,7 @@
 import CoreLocation
 import RxSwift
 
-final class RxDeferredTracker: RxLocationTracker {
+final class DeferredTracker: LocationTracker {
 
     private let deferredDistance: CLLocationDistance
     private let deferredTimeout: TimeInterval
@@ -33,15 +33,9 @@ final class RxDeferredTracker: RxLocationTracker {
         super.requestAuthorization()
 
         if !CLLocationManager.locationServicesEnabled() {
-            let error = RxLocationTracker.Failure.standardLocationServicesUnavailable
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
-        }
-
-        if !CLLocationManager.deferredLocationUpdatesAvailable() {
-            let error = RxLocationTracker.Failure.deferredLocationServicesUnavailable
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
+            handleError(Failure.standardLocationServicesUnavailable)
+        } else if !CLLocationManager.deferredLocationUpdatesAvailable() {
+            handleError(Failure.deferredLocationServicesUnavailable)
         }
     }
 
@@ -57,10 +51,9 @@ final class RxDeferredTracker: RxLocationTracker {
         super.stopTracking()
     }
 
-    override func finishDeferredUpdatesWithError(_ error: Error?) {
+    override func handleFinishDeferredUpdatesWithError(_ error: Error?) {
         if let error = error {
-            _rx_error.onNext(error)
-            // _rx_location.onError(error)
+            handleError(error)
         }
 
         manager.allowDeferredLocationUpdates(untilTraveled: deferredDistance, timeout: deferredTimeout)

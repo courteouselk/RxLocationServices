@@ -1,12 +1,12 @@
 //
-//  RxLocationTracker+Failure.swift
+//  LocationTracker+Failure.swift
 //  RxLocationServices
 //
 //  Created by Anton Bronnikov on 14/09/2016.
 //  Copyright © 2016 northernForest. All rights reserved.
 //
 
-extension RxLocationTracker {
+extension LocationTracker {
 
     enum Failure: Error {
 
@@ -34,7 +34,7 @@ extension RxLocationTracker {
 
 // MARK:
 
-extension RxLocationTracker.Failure: CustomStringConvertible {
+extension LocationTracker.Failure: CustomStringConvertible {
 
     var description: String {
         switch self {

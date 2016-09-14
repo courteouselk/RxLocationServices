@@ -1,5 +1,5 @@
 //
-//  RxSignificantLocationChangeTracker.swift
+//  SignificantLocationChangeTracker.swift
 //  RxLocationServices
 //
 //  Created by Anton Bronnikov on 03/09/2016.
@@ -9,13 +9,13 @@
 import CoreLocation
 import RxSwift
 
-final class RxSignificantLocationChangeTracker: RxLocationTracker {
+final class SignificantLocationChangeTracker: LocationTracker {
 
     override func requestAuthorization() {
         super.requestAuthorization()
 
         if !CLLocationManager.significantLocationChangeMonitoringAvailable() {
-            _rx_location.onError(RxLocationTracker.Failure.significantLocationChangeServicesUnavailable)
+            handleError(Failure.significantLocationChangeServicesUnavailable)
         }
     }
 

@@ -1,5 +1,5 @@
 //
-//  RxLocationTracker+macOS.swift
+//  LocationTracker+macOS.swift
 //  RxLocationServices
 //
 //  Created by Anton Bronnikov on 12/09/2016.
@@ -10,7 +10,7 @@
 
 import CoreLocation
 
-extension RxLocationTracker {
+extension LocationTracker {
 
     // MARK: - Public API
 
@@ -32,8 +32,8 @@ extension RxLocationTracker {
     ///   - [CLLocationManager](apple-reference-documentation://hs8c5staNS#overview)
 
     public static func standardTracker(desiredAccuracy: CLLocationAccuracy,
-                                       distanceFilter: Double) -> RxLocationTracker {
-        return RxStandardLocationTracker(
+                                       distanceFilter: Double) -> LocationTracker {
+        return StandardLocationTracker(
             desiredAccuracy: desiredAccuracy,
             distanceFilter: distanceFilter,
             requestAuthorizeAlways: true
@@ -50,8 +50,8 @@ extension RxLocationTracker {
     /// - seealso:
     ///   - [CLLocationManager](apple-reference-documentation://hs8c5staNS#overview)
 
-    public static func significantChangeTracker() -> RxLocationTracker {
-        return RxSignificantLocationChangeTracker(requestAuthorizeAlways: true)
+    public static func significantChangeTracker() -> LocationTracker {
+        return SignificantLocationChangeTracker(requestAuthorizeAlways: true)
     }
 
 }

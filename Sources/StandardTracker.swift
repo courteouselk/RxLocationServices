@@ -1,5 +1,5 @@
 //
-//  RxStandardLocationTracker.swift
+//  StandardLocationTracker.swift
 //  RxLocationServices
 //
 //  Created by Anton Bronnikov on 03/09/2016.
@@ -9,7 +9,7 @@
 import CoreLocation
 import RxSwift
 
-final class RxStandardLocationTracker: RxLocationTracker {
+final class StandardLocationTracker: LocationTracker {
 
     init(desiredAccuracy: CLLocationAccuracy, distanceFilter: Double, requestAuthorizeAlways: Bool) {
         super.init(requestAuthorizeAlways: requestAuthorizeAlways)
@@ -22,9 +22,7 @@ final class RxStandardLocationTracker: RxLocationTracker {
         super.requestAuthorization()
 
         if !CLLocationManager.locationServicesEnabled() {
-            let error = RxLocationTracker.Failure.standardLocationServicesUnavailable
-            _rx_error.onNext(error)
-            _rx_location.onError(error)
+            handleError(Failure.standardLocationServicesUnavailable)
         }
     }
     

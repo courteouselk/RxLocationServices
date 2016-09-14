@@ -7,33 +7,35 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		BA6829771D7AA799009E8883 /* RxLocationManager-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = BA6829761D7AA799009E8883 /* RxLocationManager-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		BA6829881D7B0797009E8883 /* RxLocationManager-macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = BA6829871D7B0797009E8883 /* RxLocationManager-macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA6829771D7AA799009E8883 /* RxLocationServices-iOS.h in Headers */ = {isa = PBXBuildFile; fileRef = BA6829761D7AA799009E8883 /* RxLocationServices-iOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		BA6829881D7B0797009E8883 /* RxLocationServices-macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = BA6829871D7B0797009E8883 /* RxLocationServices-macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA6829AC1D7B16AB009E8883 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA6829AB1D7B16AB009E8883 /* RxSwift.framework */; };
 		BA6829B11D7B1933009E8883 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA6829AD1D7B16BD009E8883 /* RxSwift.framework */; };
-		BA6829B91D7B2D38009E8883 /* RxLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */; };
-		BA6829BA1D7B2D38009E8883 /* RxLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */; };
-		BA6829BC1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */; };
-		BA6829BD1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */; };
-		BA6829BF1D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */; };
-		BA6829C01D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */; };
-		BA79E0B51D87352800ADF91C /* RxLocationTracker+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79E0B41D87352800ADF91C /* RxLocationTracker+iOS.swift */; };
-		BA79E0B71D87354200ADF91C /* RxLocationTracker+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79E0B61D87354200ADF91C /* RxLocationTracker+macOS.swift */; };
-		BAD1382F1D8986DC008244BF /* RxLocationTracker+Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1382E1D8986DC008244BF /* RxLocationTracker+Failure.swift */; };
-		BAD138301D8986DC008244BF /* RxLocationTracker+Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1382E1D8986DC008244BF /* RxLocationTracker+Failure.swift */; };
-		BAEFC5F21D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */; };
-		BAEFC5F31D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */; };
-		BAEFC5F51D88516000DE8F0D /* RxDeferredTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */; };
-		BAEFC5F61D88516000DE8F0D /* RxDeferredTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */; };
+		BA6829B91D7B2D38009E8883 /* LocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B81D7B2D38009E8883 /* LocationTracker.swift */; };
+		BA6829BA1D7B2D38009E8883 /* LocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B81D7B2D38009E8883 /* LocationTracker.swift */; };
+		BA6829BC1D7B2F33009E8883 /* SignificantLocationChangeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BB1D7B2F33009E8883 /* SignificantLocationChangeTracker.swift */; };
+		BA6829BD1D7B2F33009E8883 /* SignificantLocationChangeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BB1D7B2F33009E8883 /* SignificantLocationChangeTracker.swift */; };
+		BA6829BF1D7B2FE7009E8883 /* StandardTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BE1D7B2FE7009E8883 /* StandardTracker.swift */; };
+		BA6829C01D7B2FE7009E8883 /* StandardTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BE1D7B2FE7009E8883 /* StandardTracker.swift */; };
+		BA79E0B51D87352800ADF91C /* LocationTracker+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79E0B41D87352800ADF91C /* LocationTracker+iOS.swift */; };
+		BA79E0B71D87354200ADF91C /* LocationTracker+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79E0B61D87354200ADF91C /* LocationTracker+macOS.swift */; };
+		BAD1382F1D8986DC008244BF /* LocationTracker+Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1382E1D8986DC008244BF /* LocationTracker+Failure.swift */; };
+		BAD138301D8986DC008244BF /* LocationTracker+Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1382E1D8986DC008244BF /* LocationTracker+Failure.swift */; };
+		BAD1383C1D89FBA9008244BF /* LocationTracker+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1383B1D89FBA9008244BF /* LocationTracker+Rx.swift */; };
+		BAD1383D1D89FBA9008244BF /* LocationTracker+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1383B1D89FBA9008244BF /* LocationTracker+Rx.swift */; };
+		BAEFC5F21D87C91700DE8F0D /* LocationTracker+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F11D87C91700DE8F0D /* LocationTracker+Delegate.swift */; };
+		BAEFC5F31D87C91700DE8F0D /* LocationTracker+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F11D87C91700DE8F0D /* LocationTracker+Delegate.swift */; };
+		BAEFC5F51D88516000DE8F0D /* DeferredTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* DeferredTracker.swift */; };
+		BAEFC5F61D88516000DE8F0D /* DeferredTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* DeferredTracker.swift */; };
 		BAF82A2D1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF82A2C1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		BA6829731D7AA798009E8883 /* RxLocationServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxLocationServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA6829761D7AA799009E8883 /* RxLocationManager-iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RxLocationManager-iOS.h"; path = "Sources/RxLocationManager-iOS.h"; sourceTree = "<group>"; };
+		BA6829761D7AA799009E8883 /* RxLocationServices-iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RxLocationServices-iOS.h"; path = "Sources/RxLocationServices-iOS.h"; sourceTree = "<group>"; };
 		BA6829781D7AA799009E8883 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-iOS.plist"; path = "Support/Info-iOS.plist"; sourceTree = "<group>"; };
 		BA6829851D7B0796009E8883 /* RxLocationServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxLocationServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		BA6829871D7B0797009E8883 /* RxLocationManager-macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RxLocationManager-macOS.h"; path = "Sources/RxLocationManager-macOS.h"; sourceTree = "<group>"; };
+		BA6829871D7B0797009E8883 /* RxLocationServices-macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RxLocationServices-macOS.h"; path = "Sources/RxLocationServices-macOS.h"; sourceTree = "<group>"; };
 		BA6829891D7B0797009E8883 /* Info-macOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-macOS.plist"; path = "Support/Info-macOS.plist"; sourceTree = "<group>"; };
 		BA68299D1D7B0EEB009E8883 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		BA6829A01D7B0F25009E8883 /* Cartfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -42,14 +44,15 @@
 		BA6829AB1D7B16AB009E8883 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		BA6829AD1D7B16BD009E8883 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
 		BA6829AF1D7B16F2009E8883 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
-		BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxLocationTracker.swift; path = Sources/RxLocationTracker.swift; sourceTree = "<group>"; };
-		BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxSignificantLocationChangeTracker.swift; path = Sources/RxSignificantLocationChangeTracker.swift; sourceTree = "<group>"; };
-		BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxStandardTracker.swift; path = Sources/RxStandardTracker.swift; sourceTree = "<group>"; };
-		BA79E0B41D87352800ADF91C /* RxLocationTracker+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+iOS.swift"; path = "Sources/RxLocationTracker+iOS.swift"; sourceTree = "<group>"; };
-		BA79E0B61D87354200ADF91C /* RxLocationTracker+macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+macOS.swift"; path = "Sources/RxLocationTracker+macOS.swift"; sourceTree = "<group>"; };
-		BAD1382E1D8986DC008244BF /* RxLocationTracker+Failure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+Failure.swift"; path = "Sources/RxLocationTracker+Failure.swift"; sourceTree = "<group>"; };
-		BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+Delegate.swift"; path = "Sources/RxLocationTracker+Delegate.swift"; sourceTree = "<group>"; };
-		BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxDeferredTracker.swift; path = Sources/RxDeferredTracker.swift; sourceTree = "<group>"; };
+		BA6829B81D7B2D38009E8883 /* LocationTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = LocationTracker.swift; path = Sources/LocationTracker.swift; sourceTree = "<group>"; };
+		BA6829BB1D7B2F33009E8883 /* SignificantLocationChangeTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SignificantLocationChangeTracker.swift; path = Sources/SignificantLocationChangeTracker.swift; sourceTree = "<group>"; };
+		BA6829BE1D7B2FE7009E8883 /* StandardTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StandardTracker.swift; path = Sources/StandardTracker.swift; sourceTree = "<group>"; };
+		BA79E0B41D87352800ADF91C /* LocationTracker+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LocationTracker+iOS.swift"; path = "Sources/LocationTracker+iOS.swift"; sourceTree = "<group>"; };
+		BA79E0B61D87354200ADF91C /* LocationTracker+macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LocationTracker+macOS.swift"; path = "Sources/LocationTracker+macOS.swift"; sourceTree = "<group>"; };
+		BAD1382E1D8986DC008244BF /* LocationTracker+Failure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LocationTracker+Failure.swift"; path = "Sources/LocationTracker+Failure.swift"; sourceTree = "<group>"; };
+		BAD1383B1D89FBA9008244BF /* LocationTracker+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LocationTracker+Rx.swift"; path = "Sources/LocationTracker+Rx.swift"; sourceTree = "<group>"; };
+		BAEFC5F11D87C91700DE8F0D /* LocationTracker+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LocationTracker+Delegate.swift"; path = "Sources/LocationTracker+Delegate.swift"; sourceTree = "<group>"; };
+		BAEFC5F41D88516000DE8F0D /* DeferredTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeferredTracker.swift; path = Sources/DeferredTracker.swift; sourceTree = "<group>"; };
 		BAF82A2C1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLAuthorizationStatus.swift; path = Sources/CLAuthorizationStatus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -116,8 +119,8 @@
 		BA68299B1D7B0EC7009E8883 /* Headers */ = {
 			isa = PBXGroup;
 			children = (
-				BA6829761D7AA799009E8883 /* RxLocationManager-iOS.h */,
-				BA6829871D7B0797009E8883 /* RxLocationManager-macOS.h */,
+				BA6829761D7AA799009E8883 /* RxLocationServices-iOS.h */,
+				BA6829871D7B0797009E8883 /* RxLocationServices-macOS.h */,
 			);
 			name = Headers;
 			sourceTree = "<group>";
@@ -153,14 +156,15 @@
 		BA79E0B81D87764B00ADF91C /* LocationTracker */ = {
 			isa = PBXGroup;
 			children = (
-				BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */,
-				BA79E0B41D87352800ADF91C /* RxLocationTracker+iOS.swift */,
-				BA79E0B61D87354200ADF91C /* RxLocationTracker+macOS.swift */,
-				BAD1382E1D8986DC008244BF /* RxLocationTracker+Failure.swift */,
-				BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */,
-				BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */,
-				BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */,
-				BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */,
+				BA6829B81D7B2D38009E8883 /* LocationTracker.swift */,
+				BAD1383B1D89FBA9008244BF /* LocationTracker+Rx.swift */,
+				BA79E0B41D87352800ADF91C /* LocationTracker+iOS.swift */,
+				BA79E0B61D87354200ADF91C /* LocationTracker+macOS.swift */,
+				BAD1382E1D8986DC008244BF /* LocationTracker+Failure.swift */,
+				BAEFC5F11D87C91700DE8F0D /* LocationTracker+Delegate.swift */,
+				BA6829BE1D7B2FE7009E8883 /* StandardTracker.swift */,
+				BAEFC5F41D88516000DE8F0D /* DeferredTracker.swift */,
+				BA6829BB1D7B2F33009E8883 /* SignificantLocationChangeTracker.swift */,
 			);
 			name = LocationTracker;
 			sourceTree = "<group>";
@@ -180,7 +184,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA6829771D7AA799009E8883 /* RxLocationManager-iOS.h in Headers */,
+				BA6829771D7AA799009E8883 /* RxLocationServices-iOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,7 +192,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BA6829881D7B0797009E8883 /* RxLocationManager-macOS.h in Headers */,
+				BA6829881D7B0797009E8883 /* RxLocationServices-macOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -290,14 +294,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAEFC5F21D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */,
-				BA6829BC1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */,
-				BA79E0B51D87352800ADF91C /* RxLocationTracker+iOS.swift in Sources */,
-				BA6829BF1D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */,
-				BAD1382F1D8986DC008244BF /* RxLocationTracker+Failure.swift in Sources */,
-				BAEFC5F51D88516000DE8F0D /* RxDeferredTracker.swift in Sources */,
+				BAEFC5F21D87C91700DE8F0D /* LocationTracker+Delegate.swift in Sources */,
+				BA6829BC1D7B2F33009E8883 /* SignificantLocationChangeTracker.swift in Sources */,
+				BA79E0B51D87352800ADF91C /* LocationTracker+iOS.swift in Sources */,
+				BA6829BF1D7B2FE7009E8883 /* StandardTracker.swift in Sources */,
+				BAD1382F1D8986DC008244BF /* LocationTracker+Failure.swift in Sources */,
+				BAEFC5F51D88516000DE8F0D /* DeferredTracker.swift in Sources */,
+				BAD1383C1D89FBA9008244BF /* LocationTracker+Rx.swift in Sources */,
 				BAF82A2D1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift in Sources */,
-				BA6829B91D7B2D38009E8883 /* RxLocationTracker.swift in Sources */,
+				BA6829B91D7B2D38009E8883 /* LocationTracker.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -305,13 +310,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAEFC5F61D88516000DE8F0D /* RxDeferredTracker.swift in Sources */,
-				BA6829BD1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */,
-				BA6829C01D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */,
-				BAEFC5F31D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */,
-				BA6829BA1D7B2D38009E8883 /* RxLocationTracker.swift in Sources */,
-				BA79E0B71D87354200ADF91C /* RxLocationTracker+macOS.swift in Sources */,
-				BAD138301D8986DC008244BF /* RxLocationTracker+Failure.swift in Sources */,
+				BAEFC5F61D88516000DE8F0D /* DeferredTracker.swift in Sources */,
+				BA6829BD1D7B2F33009E8883 /* SignificantLocationChangeTracker.swift in Sources */,
+				BA6829C01D7B2FE7009E8883 /* StandardTracker.swift in Sources */,
+				BAEFC5F31D87C91700DE8F0D /* LocationTracker+Delegate.swift in Sources */,
+				BA6829BA1D7B2D38009E8883 /* LocationTracker.swift in Sources */,
+				BAD1383D1D89FBA9008244BF /* LocationTracker+Rx.swift in Sources */,
+				BA79E0B71D87354200ADF91C /* LocationTracker+macOS.swift in Sources */,
+				BAD138301D8986DC008244BF /* LocationTracker+Failure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
