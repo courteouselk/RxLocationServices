@@ -1,6 +1,6 @@
 //
 //  RxDeferredTracker.swift
-//  RxLocationManager
+//  RxLocationServices
 //
 //  Created by Anton Bronnikov on 13/09/2016.
 //  Copyright © 2016 Anton Bronnikov. All rights reserved.
@@ -33,13 +33,13 @@ final class RxDeferredTracker: RxLocationTracker {
         super.requestAuthorization()
 
         if !CLLocationManager.locationServicesEnabled() {
-            let error = RxLocationManager.Failure.standardLocationServicesUnavailable
+            let error = RxLocationTracker.Failure.standardLocationServicesUnavailable
             _rx_error.onNext(error)
             _rx_location.onError(error)
         }
 
         if !CLLocationManager.deferredLocationUpdatesAvailable() {
-            let error = RxLocationManager.Failure.defelledLocationServicesUnavailable
+            let error = RxLocationTracker.Failure.defelledLocationServicesUnavailable
             _rx_error.onNext(error)
             _rx_location.onError(error)
         }

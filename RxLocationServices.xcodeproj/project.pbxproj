@@ -11,8 +11,6 @@
 		BA6829881D7B0797009E8883 /* RxLocationManager-macOS.h in Headers */ = {isa = PBXBuildFile; fileRef = BA6829871D7B0797009E8883 /* RxLocationManager-macOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BA6829AC1D7B16AB009E8883 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA6829AB1D7B16AB009E8883 /* RxSwift.framework */; };
 		BA6829B11D7B1933009E8883 /* RxSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA6829AD1D7B16BD009E8883 /* RxSwift.framework */; };
-		BA6829B31D7B19A4009E8883 /* RxLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B21D7B19A4009E8883 /* RxLocationManager.swift */; };
-		BA6829B41D7B19A4009E8883 /* RxLocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B21D7B19A4009E8883 /* RxLocationManager.swift */; };
 		BA6829B91D7B2D38009E8883 /* RxLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */; };
 		BA6829BA1D7B2D38009E8883 /* RxLocationTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */; };
 		BA6829BC1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */; };
@@ -21,6 +19,8 @@
 		BA6829C01D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */; };
 		BA79E0B51D87352800ADF91C /* RxLocationTracker+iOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79E0B41D87352800ADF91C /* RxLocationTracker+iOS.swift */; };
 		BA79E0B71D87354200ADF91C /* RxLocationTracker+macOS.swift in Sources */ = {isa = PBXBuildFile; fileRef = BA79E0B61D87354200ADF91C /* RxLocationTracker+macOS.swift */; };
+		BAD1382F1D8986DC008244BF /* RxLocationTracker+Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1382E1D8986DC008244BF /* RxLocationTracker+Failure.swift */; };
+		BAD138301D8986DC008244BF /* RxLocationTracker+Failure.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1382E1D8986DC008244BF /* RxLocationTracker+Failure.swift */; };
 		BAEFC5F21D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */; };
 		BAEFC5F31D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */; };
 		BAEFC5F51D88516000DE8F0D /* RxDeferredTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */; };
@@ -29,10 +29,10 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		BA6829731D7AA798009E8883 /* RxLocationManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxLocationManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA6829731D7AA798009E8883 /* RxLocationServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxLocationServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6829761D7AA799009E8883 /* RxLocationManager-iOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RxLocationManager-iOS.h"; path = "Sources/RxLocationManager-iOS.h"; sourceTree = "<group>"; };
 		BA6829781D7AA799009E8883 /* Info-iOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-iOS.plist"; path = "Support/Info-iOS.plist"; sourceTree = "<group>"; };
-		BA6829851D7B0796009E8883 /* RxLocationManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxLocationManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		BA6829851D7B0796009E8883 /* RxLocationServices.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RxLocationServices.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		BA6829871D7B0797009E8883 /* RxLocationManager-macOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "RxLocationManager-macOS.h"; path = "Sources/RxLocationManager-macOS.h"; sourceTree = "<group>"; };
 		BA6829891D7B0797009E8883 /* Info-macOS.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Info-macOS.plist"; path = "Support/Info-macOS.plist"; sourceTree = "<group>"; };
 		BA68299D1D7B0EEB009E8883 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -42,12 +42,12 @@
 		BA6829AB1D7B16AB009E8883 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/iOS/RxSwift.framework; sourceTree = "<group>"; };
 		BA6829AD1D7B16BD009E8883 /* RxSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = RxSwift.framework; path = Carthage/Build/Mac/RxSwift.framework; sourceTree = "<group>"; };
 		BA6829AF1D7B16F2009E8883 /* Cartfile.resolved */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
-		BA6829B21D7B19A4009E8883 /* RxLocationManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxLocationManager.swift; path = Sources/RxLocationManager.swift; sourceTree = "<group>"; };
 		BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxLocationTracker.swift; path = Sources/RxLocationTracker.swift; sourceTree = "<group>"; };
 		BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxSignificantLocationChangeTracker.swift; path = Sources/RxSignificantLocationChangeTracker.swift; sourceTree = "<group>"; };
 		BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxStandardTracker.swift; path = Sources/RxStandardTracker.swift; sourceTree = "<group>"; };
 		BA79E0B41D87352800ADF91C /* RxLocationTracker+iOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+iOS.swift"; path = "Sources/RxLocationTracker+iOS.swift"; sourceTree = "<group>"; };
 		BA79E0B61D87354200ADF91C /* RxLocationTracker+macOS.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+macOS.swift"; path = "Sources/RxLocationTracker+macOS.swift"; sourceTree = "<group>"; };
+		BAD1382E1D8986DC008244BF /* RxLocationTracker+Failure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+Failure.swift"; path = "Sources/RxLocationTracker+Failure.swift"; sourceTree = "<group>"; };
 		BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "RxLocationTracker+Delegate.swift"; path = "Sources/RxLocationTracker+Delegate.swift"; sourceTree = "<group>"; };
 		BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = RxDeferredTracker.swift; path = Sources/RxDeferredTracker.swift; sourceTree = "<group>"; };
 		BAF82A2C1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLAuthorizationStatus.swift; path = Sources/CLAuthorizationStatus.swift; sourceTree = "<group>"; };
@@ -89,8 +89,8 @@
 		BA6829741D7AA798009E8883 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				BA6829731D7AA798009E8883 /* RxLocationManager.framework */,
-				BA6829851D7B0796009E8883 /* RxLocationManager.framework */,
+				BA6829731D7AA798009E8883 /* RxLocationServices.framework */,
+				BA6829851D7B0796009E8883 /* RxLocationServices.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -98,9 +98,8 @@
 		BA68297E1D7AA7BC009E8883 /* Sources */ = {
 			isa = PBXGroup;
 			children = (
+				BAD1382D1D89843B008244BF /* CoreLocation */,
 				BA79E0B81D87764B00ADF91C /* LocationTracker */,
-				BA6829B21D7B19A4009E8883 /* RxLocationManager.swift */,
-				BAF82A2C1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift */,
 			);
 			name = Sources;
 			sourceTree = "<group>";
@@ -157,12 +156,21 @@
 				BA6829B81D7B2D38009E8883 /* RxLocationTracker.swift */,
 				BA79E0B41D87352800ADF91C /* RxLocationTracker+iOS.swift */,
 				BA79E0B61D87354200ADF91C /* RxLocationTracker+macOS.swift */,
+				BAD1382E1D8986DC008244BF /* RxLocationTracker+Failure.swift */,
 				BAEFC5F11D87C91700DE8F0D /* RxLocationTracker+Delegate.swift */,
 				BA6829BE1D7B2FE7009E8883 /* RxStandardTracker.swift */,
 				BAEFC5F41D88516000DE8F0D /* RxDeferredTracker.swift */,
 				BA6829BB1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift */,
 			);
 			name = LocationTracker;
+			sourceTree = "<group>";
+		};
+		BAD1382D1D89843B008244BF /* CoreLocation */ = {
+			isa = PBXGroup;
+			children = (
+				BAF82A2C1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift */,
+			);
+			name = CoreLocation;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -187,9 +195,9 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
-		BA6829721D7AA798009E8883 /* RxLocationManager-iOS */ = {
+		BA6829721D7AA798009E8883 /* RxLocationServices-iOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BA68297B1D7AA799009E8883 /* Build configuration list for PBXNativeTarget "RxLocationManager-iOS" */;
+			buildConfigurationList = BA68297B1D7AA799009E8883 /* Build configuration list for PBXNativeTarget "RxLocationServices-iOS" */;
 			buildPhases = (
 				BA68296E1D7AA798009E8883 /* Sources */,
 				BA68296F1D7AA798009E8883 /* Frameworks */,
@@ -200,14 +208,14 @@
 			);
 			dependencies = (
 			);
-			name = "RxLocationManager-iOS";
+			name = "RxLocationServices-iOS";
 			productName = RxLocationManager;
-			productReference = BA6829731D7AA798009E8883 /* RxLocationManager.framework */;
+			productReference = BA6829731D7AA798009E8883 /* RxLocationServices.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		BA6829841D7B0796009E8883 /* RxLocationManager-macOS */ = {
+		BA6829841D7B0796009E8883 /* RxLocationServices-macOS */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = BA68298A1D7B0797009E8883 /* Build configuration list for PBXNativeTarget "RxLocationManager-macOS" */;
+			buildConfigurationList = BA68298A1D7B0797009E8883 /* Build configuration list for PBXNativeTarget "RxLocationServices-macOS" */;
 			buildPhases = (
 				BA6829801D7B0796009E8883 /* Sources */,
 				BA6829811D7B0796009E8883 /* Frameworks */,
@@ -218,9 +226,9 @@
 			);
 			dependencies = (
 			);
-			name = "RxLocationManager-macOS";
+			name = "RxLocationServices-macOS";
 			productName = "RxLocationManager-macOS";
-			productReference = BA6829851D7B0796009E8883 /* RxLocationManager.framework */;
+			productReference = BA6829851D7B0796009E8883 /* RxLocationServices.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
@@ -242,7 +250,7 @@
 					};
 				};
 			};
-			buildConfigurationList = BA68296D1D7AA798009E8883 /* Build configuration list for PBXProject "RxLocationManager" */;
+			buildConfigurationList = BA68296D1D7AA798009E8883 /* Build configuration list for PBXProject "RxLocationServices" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -254,8 +262,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				BA6829721D7AA798009E8883 /* RxLocationManager-iOS */,
-				BA6829841D7B0796009E8883 /* RxLocationManager-macOS */,
+				BA6829721D7AA798009E8883 /* RxLocationServices-iOS */,
+				BA6829841D7B0796009E8883 /* RxLocationServices-macOS */,
 			);
 		};
 /* End PBXProject section */
@@ -284,9 +292,9 @@
 			files = (
 				BAEFC5F21D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */,
 				BA6829BC1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */,
-				BA6829B31D7B19A4009E8883 /* RxLocationManager.swift in Sources */,
 				BA79E0B51D87352800ADF91C /* RxLocationTracker+iOS.swift in Sources */,
 				BA6829BF1D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */,
+				BAD1382F1D8986DC008244BF /* RxLocationTracker+Failure.swift in Sources */,
 				BAEFC5F51D88516000DE8F0D /* RxDeferredTracker.swift in Sources */,
 				BAF82A2D1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift in Sources */,
 				BA6829B91D7B2D38009E8883 /* RxLocationTracker.swift in Sources */,
@@ -299,11 +307,11 @@
 			files = (
 				BAEFC5F61D88516000DE8F0D /* RxDeferredTracker.swift in Sources */,
 				BA6829BD1D7B2F33009E8883 /* RxSignificantLocationChangeTracker.swift in Sources */,
-				BA6829B41D7B19A4009E8883 /* RxLocationManager.swift in Sources */,
 				BA6829C01D7B2FE7009E8883 /* RxStandardTracker.swift in Sources */,
 				BAEFC5F31D87C91700DE8F0D /* RxLocationTracker+Delegate.swift in Sources */,
 				BA6829BA1D7B2D38009E8883 /* RxLocationTracker.swift in Sources */,
 				BA79E0B71D87354200ADF91C /* RxLocationTracker+macOS.swift in Sources */,
+				BAD138301D8986DC008244BF /* RxLocationTracker+Failure.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -414,7 +422,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.northernforest.rxlocationmanager-ios";
-				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PRODUCT_NAME = RxLocationServices;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -443,7 +451,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.northernforest.rxlocationmanager-ios";
-				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PRODUCT_NAME = RxLocationServices;
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos";
@@ -475,7 +483,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.northernforest.rxlocationmanager-macos";
-				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PRODUCT_NAME = RxLocationServices;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
@@ -506,7 +514,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				PRODUCT_BUNDLE_IDENTIFIER = "nl.northernforest.rxlocationmanager-macos";
-				PRODUCT_NAME = "$(PROJECT_NAME)";
+				PRODUCT_NAME = RxLocationServices;
 				SDKROOT = macosx;
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = macosx;
@@ -519,7 +527,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		BA68296D1D7AA798009E8883 /* Build configuration list for PBXProject "RxLocationManager" */ = {
+		BA68296D1D7AA798009E8883 /* Build configuration list for PBXProject "RxLocationServices" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BA6829791D7AA799009E8883 /* Debug */,
@@ -528,7 +536,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BA68297B1D7AA799009E8883 /* Build configuration list for PBXNativeTarget "RxLocationManager-iOS" */ = {
+		BA68297B1D7AA799009E8883 /* Build configuration list for PBXNativeTarget "RxLocationServices-iOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BA68297C1D7AA799009E8883 /* Debug */,
@@ -537,7 +545,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		BA68298A1D7B0797009E8883 /* Build configuration list for PBXNativeTarget "RxLocationManager-macOS" */ = {
+		BA68298A1D7B0797009E8883 /* Build configuration list for PBXNativeTarget "RxLocationServices-macOS" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				BA68298B1D7B0797009E8883 /* Debug */,

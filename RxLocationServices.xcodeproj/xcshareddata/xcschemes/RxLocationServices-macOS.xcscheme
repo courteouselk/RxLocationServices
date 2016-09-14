@@ -14,10 +14,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "BA6829721D7AA798009E8883"
-               BuildableName = "RxLocationManager.framework"
-               BlueprintName = "RxLocationManager-iOS"
-               ReferencedContainer = "container:RxLocationManager.xcodeproj">
+               BlueprintIdentifier = "BA6829841D7B0796009E8883"
+               BuildableName = "RxLocationServices.framework"
+               BlueprintName = "RxLocationServices-macOS"
+               ReferencedContainer = "container:RxLocationServices.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -45,10 +45,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BA6829721D7AA798009E8883"
-            BuildableName = "RxLocationManager.framework"
-            BlueprintName = "RxLocationManager-iOS"
-            ReferencedContainer = "container:RxLocationManager.xcodeproj">
+            BlueprintIdentifier = "BA6829841D7B0796009E8883"
+            BuildableName = "RxLocationServices.framework"
+            BlueprintName = "RxLocationServices-macOS"
+            ReferencedContainer = "container:RxLocationServices.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -63,10 +63,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "BA6829721D7AA798009E8883"
-            BuildableName = "RxLocationManager.framework"
-            BlueprintName = "RxLocationManager-iOS"
-            ReferencedContainer = "container:RxLocationManager.xcodeproj">
+            BlueprintIdentifier = "BA6829841D7B0796009E8883"
+            BuildableName = "RxLocationServices.framework"
+            BlueprintName = "RxLocationServices-macOS"
+            ReferencedContainer = "container:RxLocationServices.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

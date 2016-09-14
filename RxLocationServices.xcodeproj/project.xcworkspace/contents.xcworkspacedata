@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:RxLocationManager.xcodeproj">
+      location = "self:/Users/courteouselk/Projects/RxLocationManager/RxLocationServices.xcodeproj">
    </FileRef>
 </Workspace>

@@ -1,15 +1,12 @@
 //
-//  RxLocationManager.swift
-//  RxLocationManager
+//  RxLocationTracker+Failure.swift
+//  RxLocationServices
 //
-//  Created by Anton Bronnikov on 03/09/2016.
-//  Copyright © 2016 Anton Bronnikov. All rights reserved.
+//  Created by Anton Bronnikov on 14/09/2016.
+//  Copyright © 2016 northernForest. All rights reserved.
 //
 
-import CoreLocation
-import RxSwift
-
-public final class RxLocationManager {
+extension RxLocationTracker {
 
     enum Failure: Error {
 
@@ -30,9 +27,7 @@ public final class RxLocationManager {
 
         /// Significant location change services are not available.
         case significantLocationChangeServicesUnavailable
-
+        
     }
-
-    static let serialScheduler = SerialDispatchQueueScheduler.init(internalSerialQueueName: "nl.northernforest.rxlocationmanager")
-
+    
 }

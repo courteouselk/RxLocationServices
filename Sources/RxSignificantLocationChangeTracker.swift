@@ -1,6 +1,6 @@
 //
 //  RxSignificantLocationChangeTracker.swift
-//  RxLocationManager
+//  RxLocationServices
 //
 //  Created by Anton Bronnikov on 03/09/2016.
 //  Copyright © 2016 Anton Bronnikov. All rights reserved.
@@ -15,7 +15,7 @@ final class RxSignificantLocationChangeTracker: RxLocationTracker {
         super.requestAuthorization()
 
         if !CLLocationManager.significantLocationChangeMonitoringAvailable() {
-            _rx_location.onError(RxLocationManager.Failure.significantLocationChangeServicesUnavailable)
+            _rx_location.onError(RxLocationTracker.Failure.significantLocationChangeServicesUnavailable)
         }
     }
 

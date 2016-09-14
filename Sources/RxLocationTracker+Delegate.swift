@@ -1,6 +1,6 @@
 //
 //  RxLocationTracker+Delegate.swift
-//  RxLocationManager
+//  RxLocationServices
 //
 //  Created by Anton Bronnikov on 13/09/2016.
 //  Copyright © 2016 northernForest. All rights reserved.

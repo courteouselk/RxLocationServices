@@ -1,6 +1,6 @@
 //
 //  RxLocationTracker.swift
-//  RxLocationManager
+//  RxLocationServices
 //
 //  Created by Anton Bronnikov on 03/09/2016.
 //  Copyright © 2016 Anton Bronnikov. All rights reserved.
@@ -9,19 +9,34 @@
 import CoreLocation
 import RxSwift
 
+/// Reactive wrapper for location tracking functionality of `CLLocationManager` from `CoreLocation`.
+///
+/// - note: The following elements might have to be included into your iOS app's `info.plist` file 
+///         for this API to work as expected:
+///
+/// - `NSLocationWhenInUseUsageDescription` with the user prompt text for requesting a permission to 
+///    use location services when the app is in use.
+/// - `NSLocationAlwaysUsageDescription` with the user prompt text for requesting a permission to 
+///    use location services whenever the app is running.
+/// - `UIBackgroundModes` includin the `location` value to receive location updates when the app is 
+///    suspended.
+
 public class RxLocationTracker {
 
-    // MARK: - Public API
+    // MARK: Public API
 
     /// The accuracy of the location data.
     ///
-    /// - seealso: [CLLocationManager.desiredAccuracy](apple-reference-documentation://hsdIn9h8NI).
+    /// - seealso:
+    ///   - [CLLocationManager.desiredAccuracy](apple-reference-documentation://hsdIn9h8NI).
 
     public var desiredAccuracy: CLLocationAccuracy { return manager.desiredAccuracy }
 
-    /// The minimum distance (measured in meters) a device must move horizontally before an update event is generated.
+    /// The minimum distance (measured in meters) a device must move horizontally before an update 
+    /// event is generated.
     ///
-    /// - seealso: [CLLocationManager.distanceFilter](apple-reference-documentation://hsvBsx6Fhd).
+    /// - seealso:
+    ///   - [CLLocationManager.distanceFilter](apple-reference-documentation://hsvBsx6Fhd).
 
     public var distanceFilter: Double { return manager.distanceFilter }
 
@@ -29,7 +44,8 @@ public class RxLocationTracker {
 
     /// The type of user activity associated with the location updates.
     ///
-    /// - seealso: [CLLocationManager.activityType](apple-reference-documentation://hsiIxqp5lV)
+    /// - seealso: 
+    ///   - [CLLocationManager.activityType](apple-reference-documentation://hsiIxqp5lV)
 
     public var activityType: CLActivityType {
         get { return manager.activityType }
@@ -38,11 +54,30 @@ public class RxLocationTracker {
 
     /// A Boolean value indicating whether the tracker may pause location updates.
     ///
-    /// - seealso: [CLLocationManager.pausesLocationUpdatesAutomatically](apple-reference-documentation://hsrH9OEXi4).
+    /// - seealso:
+    ///   - [CLLocationManager.pausesLocationUpdatesAutomatically](apple-reference-documentation://hsrH9OEXi4).
 
     public var pausesLocationUpdatesAutomatically: Bool {
         get { return manager.pausesLocationUpdatesAutomatically }
         set { manager.pausesLocationUpdatesAutomatically = newValue }
+    }
+
+    /// A Boolean value indicating whether the app wants to receive location updates when suspended.
+    ///
+    /// The default value for this property is `false`.
+    ///
+    /// If you set this property to `true` please make sure to include the `UIBackgroundModes` key 
+    /// with the `location` value in your app’s `info.plist` file.  Please refer to the documentation
+    /// on [CLLocationManager.allowsBackgroundLocationUpdates](apple-reference-documentation://hsBpvPO12H)
+    /// for further details.
+    ///
+    /// - seealso:
+    ///   - [CLLocationManager.allowsBackgroundLocationUpdates](apple-reference-documentation://hsBpvPO12H)
+    ///   - [stackoverflow.com](http://stackoverflow.com/q/30808192/1542569)
+
+    @available(iOS 9.0, *) public var allowsBackgroundLocationUpdates: Bool {
+        get { return manager.allowsBackgroundLocationUpdates }
+        set { manager.allowsBackgroundLocationUpdates = newValue }
     }
 
     #endif
@@ -53,15 +88,13 @@ public class RxLocationTracker {
     ///
     /// - seealso: [CLLocationManager.location](apple-reference-documentation://hspJvThCV9).
 
-    public var location: CLLocation? {
-        return manager.location
-    }
+    public var location: CLLocation? { return manager.location }
 
     /// Reactive wrapper for the most recently retrieved user location.
 
     public var rx_location: Observable<CLLocation> {
         return _rx_location
-            .observeOn(RxLocationManager.serialScheduler)
+            .observeOn(RxLocationTracker.serialScheduler)
             .do(onSubscribe: {
                 self.notifySubscribed()
             })
@@ -82,11 +115,11 @@ public class RxLocationTracker {
     ///   - [CLLocationManager.locationManagerDidPauseLocationUpdates(_:)](apple-reference-documentation://hsbKLYxMg0)
     ///   - [CLLocationManager.locationManagerDidResumeLocationUpdates(_:)](apple-reference-documentation://hsRKsf1ayS)
 
-    public var rx_paused: Observable<Bool> {
-        return _rx_paused.asObservable()
-    }
+    public var rx_paused: Observable<Bool> { return _rx_paused.asObservable() }
 
     // MARK: - Internal API
+
+    static let serialScheduler = SerialDispatchQueueScheduler.init(internalSerialQueueName: "nl.northernforest.rxlocationtracker")
 
     let _rx_location = ReplaySubject<CLLocation>.create(bufferSize: 1)
     let _rx_error = ReplaySubject<Error>.create(bufferSize: 1)
@@ -116,14 +149,11 @@ public class RxLocationTracker {
 
     func startTracking() {
         requestAuthorization()
-
     }
 
     /// Stops tracking of the location
 
-    func stopTracking() {
-        // To be overriden
-    }
+    func stopTracking() { }
 
     /// Once `rx_location` observable is subscribed to, this is called.
 
@@ -161,18 +191,18 @@ public class RxLocationTracker {
         switch (status, requestAuthorizeAlways) {
 
         case (.restricted, _):
-            let error = RxLocationManager.Failure.locationServicesRestricted
+            let error = RxLocationTracker.Failure.locationServicesRestricted
             _rx_error.onNext(error)
             _rx_location.onError(error)
 
 
         case (.denied, _):
-            let error = RxLocationManager.Failure.locationServicesDenied
+            let error = RxLocationTracker.Failure.locationServicesDenied
             _rx_error.onNext(error)
             _rx_location.onError(error)
 
         case (.authorizedWhenInUse, true):
-            let error = RxLocationManager.Failure.locationServicesAuthorizedWhenInUseOnly
+            let error = RxLocationTracker.Failure.locationServicesAuthorizedWhenInUseOnly
             _rx_error.onNext(error)
             _rx_location.onError(error)
 
@@ -209,7 +239,7 @@ public class RxLocationTracker {
 
     #if os(iOS)
 
-    // MARK: - iOS specific implementations
+    // MARK: - iOS specific
 
     /// Checks current authorization, requests one if needed, throws an error if none is given.
 
@@ -217,17 +247,17 @@ public class RxLocationTracker {
         switch (CLLocationManager.authorizationStatus(), requestAuthorizeAlways) {
 
         case (.restricted, _):
-            let error = RxLocationManager.Failure.locationServicesRestricted
+            let error = RxLocationTracker.Failure.locationServicesRestricted
             _rx_error.onNext(error)
             _rx_location.onError(error)
 
         case (.denied, _):
-            let error = RxLocationManager.Failure.locationServicesDenied
+            let error = RxLocationTracker.Failure.locationServicesDenied
             _rx_error.onNext(error)
             _rx_location.onError(error)
 
         case (.authorizedWhenInUse, true):
-            let error = RxLocationManager.Failure.locationServicesAuthorizedWhenInUseOnly
+            let error = RxLocationTracker.Failure.locationServicesAuthorizedWhenInUseOnly
             _rx_error.onNext(error)
             _rx_location.onError(error)
 
@@ -245,7 +275,7 @@ public class RxLocationTracker {
 
     #elseif os(macOS)
 
-    // MARK: - macOS specific implementations
+    // MARK: - macOS specific
 
     /// Checks current authorization, requests one if needed, throws an error if none is given.
 
@@ -253,12 +283,12 @@ public class RxLocationTracker {
         switch (CLLocationManager.authorizationStatus(), requestAuthorizeAlways) {
 
         case (.restricted, _):
-            let error = RxLocationManager.Failure.locationServicesRestricted
+            let error = RxLocationTracker.Failure.locationServicesRestricted
             _rx_error.onNext(error)
             _rx_location.onError(error)
 
         case (.denied, _):
-            let error = RxLocationManager.Failure.locationServicesDenied
+            let error = RxLocationTracker.Failure.locationServicesDenied
             _rx_error.onNext(error)
             _rx_location.onError(error)
 
