@@ -21,6 +21,7 @@ final class DeferredTracker: LocationTracker {
 
     private let deferredDistance: CLLocationDistance
     private let deferredTimeout: TimeInterval
+    private var isDeferring = false
 
     init(desiredAccuracy: CLLocationAccuracy, deferredDistance: CLLocationDistance, deferredTimeout: TimeInterval) {
         assert(desiredAccuracy == kCLLocationAccuracyBestForNavigation || desiredAccuracy == kCLLocationAccuracyBest,
@@ -48,30 +49,29 @@ final class DeferredTracker: LocationTracker {
     override func startTracking() {
         super.startTracking()
         manager.startUpdatingLocation()
-        manager.allowDeferredLocationUpdates(untilTraveled: deferredDistance, timeout: deferredTimeout)
     }
 
     override func stopTracking() {
-        manager.disallowDeferredLocationUpdates()
+        // manager.disallowDeferredLocationUpdates()
         manager.stopUpdatingLocation()
         super.stopTracking()
     }
 
-    override func handleFinishDeferredUpdatesWithError(_ error: Error?) {
-        guard let error = error else {
+    override func handleUpdateLocations(_ locations: [CLLocation]) {
+        super.handleUpdateLocations(locations)
+
+        if !isDeferring {
+            isDeferring = true
             manager.allowDeferredLocationUpdates(untilTraveled: deferredDistance, timeout: deferredTimeout)
-            return
         }
+    }
 
-        handleError(error)
+    override func handleFinishDeferredUpdatesWithError(_ error: Error?) {
+        isDeferring = false
 
-        let ns_error = error as NSError
-
-        if ns_error.domain == "kCLErrorDomain" && DeferredTracker.terminalCLErrorCodes.contains(ns_error.code) {
-            return
+        if let error = error {
+            handleError(error)
         }
-
-        manager.allowDeferredLocationUpdates(untilTraveled: deferredDistance, timeout: deferredTimeout)
     }
     
 }
