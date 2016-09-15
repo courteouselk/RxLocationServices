@@ -104,7 +104,8 @@ public class LocationTracker {
 
     // MARK: - Internal API
 
-    static let serialScheduler = SerialDispatchQueueScheduler.init(internalSerialQueueName: "nl.northernforest.locationtracker")
+    private static let serialScheduler = SerialDispatchQueueScheduler.init(internalSerialQueueName: "nl.northernforest.locationtracker")
+    private static let terminalCLErrorCodes: Set<Int> = [CLError.denied.rawValue]
 
     let _location = ReplaySubject<CLLocation>.create(bufferSize: 1)
     let _error = ReplaySubject<Error>.create(bufferSize: 1)
@@ -224,13 +225,17 @@ public class LocationTracker {
     /// Respond to the event of an error.
 
     func handleError(_ error: Error) {
-        _error.onNext(error)
+        let ns_error = error as NSError
+
+        self.error = error
 
         if let error = error as? LocationTracker.Failure {
             _location.onError(error)
+        } else if ns_error.domain == "kCLErrorDomain" && LocationTracker.terminalCLErrorCodes.contains(ns_error.code) {
+            _location.onError(error)
         }
 
-        self.error = error
+        _error.onNext(error)
     }
 
     /// Respond to the event of a pause in location updates.

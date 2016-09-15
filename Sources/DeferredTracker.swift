@@ -13,6 +13,12 @@ import RxSwift
 
 final class DeferredTracker: LocationTracker {
 
+    private static let terminalCLErrorCodes: Set<Int> = [
+        CLError.deferredFailed.rawValue, CLError.deferredNotUpdatingLocation.rawValue,
+        CLError.deferredAccuracyTooLow.rawValue, CLError.deferredDistanceFiltered.rawValue,
+        CLError.denied.rawValue
+    ]
+
     private let deferredDistance: CLLocationDistance
     private let deferredTimeout: TimeInterval
 
@@ -52,13 +58,22 @@ final class DeferredTracker: LocationTracker {
     }
 
     override func handleFinishDeferredUpdatesWithError(_ error: Error?) {
-        if let error = error {
-            handleError(error)
+        guard let error = error else {
+            manager.allowDeferredLocationUpdates(untilTraveled: deferredDistance, timeout: deferredTimeout)
+            return
+        }
+
+        handleError(error)
+
+        let ns_error = error as NSError
+
+        if ns_error.domain == "kCLErrorDomain" && DeferredTracker.terminalCLErrorCodes.contains(ns_error.code) {
+            return
         }
 
         manager.allowDeferredLocationUpdates(untilTraveled: deferredDistance, timeout: deferredTimeout)
     }
-
+    
 }
 
 #endif
