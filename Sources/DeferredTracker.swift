@@ -22,16 +22,13 @@ final class DeferredTracker: LocationTracker {
     private let deferredDistance: CLLocationDistance
     private let deferredTimeout: TimeInterval
 
-    init(desiredAccuracy: CLLocationAccuracy, deferredDistance: CLLocationDistance, deferredTimeout: TimeInterval) {
-        assert(desiredAccuracy == kCLLocationAccuracyBestForNavigation || desiredAccuracy == kCLLocationAccuracyBest,
-               "Desired accuracy must be either kCLLocationAccuracyBestForNavigation or kCLLocationAccuracyBest")
-
+    init(deferredDistance: CLLocationDistance, deferredTimeout: TimeInterval, accuracyForNavigation: Bool) {
         self.deferredDistance = deferredDistance
         self.deferredTimeout = deferredTimeout
 
         super.init(requestAuthorizeAlways: true)
 
-        manager.desiredAccuracy = desiredAccuracy
+        manager.desiredAccuracy = accuracyForNavigation ? kCLLocationAccuracyBestForNavigation : kCLLocationAccuracyBest
         manager.distanceFilter = kCLDistanceFilterNone
     }
 

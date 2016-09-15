@@ -24,9 +24,9 @@ extension LocationTracker {
     /// hardware like GPS, which consumes more power.
     ///
     /// - parameters:
-    ///   - desiredAccuracy : The accuracy of the location data.
-    ///   - distanceFilter  : The minimum distance (measured in meters) a device must move
-    ///                       horizontally before an update event is generated.
+    ///   - desiredAccuracy        : The accuracy of the location data.
+    ///   - distanceFilter         : The minimum distance (measured in meters) a device must move
+    ///                              horizontally before an update event is generated.
     ///   - requestAuthorizeAlways : Whether to requests permission to use location services
     ///                              whenever the app is running (`true`) or only while the app is
     ///                              in the foreground (`false`).  Default value is `false`.
@@ -55,25 +55,29 @@ extension LocationTracker {
     /// are met, the location manager may begin deferring the delivery of events.
     ///
     /// - parameters:
-    ///   - desiredAccuracy  : The accuracy of the location data.  The only allowed values are 
-    ///                        `kCLLocationAccuracyBest` and `kCLLocationAccuracyBestForNavigation`.
-    ///   - deferredDistance : The distance (in meters) from the current location that must be 
-    ///                        travelled before event delivery resumes. To specify an unlimited 
-    ///                        distance, pass the `CLLocationDistanceMax` constant.
-    ///   - deferredTimeout  : The amount of time (in seconds) from the current time that must pass 
-    ///                        before event delivery resumes. To specify an unlimited amount of 
-    ///                        time, pass the `CLTimeIntervalMax` constant.
+    ///   - deferredDistance      : The distance (in meters) from the current location that must be
+    ///                             travelled before event delivery resumes. To specify an unlimited
+    ///                             distance, pass the `CLLocationDistanceMax` constant.
+    ///   - deferredTimeout       : The amount of time (in seconds) from the current time that must
+    ///                             pass before event delivery resumes. To specify an unlimited
+    ///                             amount of time, pass the `CLTimeIntervalMax` constant.
+    ///   - accuracyForNavigation : Deferred location updates are only available in the modes of
+    ///                            `kCLLocationAccuracyBest` or `kCLLocationAccuracyBestForNavigation`.
+    ///                             Setting this parameters to `true` selects the latter, while the
+    ///                            `false` (default) opts for the former.
     ///
     /// - seealso:
     ///   - [CLLocationManager.allowDeferredLocationUpdates(untilTraveled:timeout:)](apple-reference-documentation://hs64cDNHc7)
+    ///   - [stackoverflow.com](http://stackoverflow.com/a/14509263/1542569)
+    ///   - [stackoverflow.com](http://stackoverflow.com/a/26345001/1542569)
 
-    public static func deferredTracker(desiredAccuracy: CLLocationAccuracy,
-                                       deferredDistance: CLLocationDistance,
-                                       deferredTimeout: TimeInterval) -> LocationTracker {
+    public static func deferredTracker(deferredDistance: CLLocationDistance,
+                                       deferredTimeout: TimeInterval,
+                                       accuracyForNavigation: Bool = false) -> LocationTracker {
         return DeferredTracker(
-            desiredAccuracy: desiredAccuracy,
             deferredDistance: deferredDistance,
-            deferredTimeout: deferredTimeout
+            deferredTimeout: deferredTimeout,
+            accuracyForNavigation: accuracyForNavigation
         )
     }
 
