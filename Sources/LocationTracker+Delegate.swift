@@ -20,36 +20,36 @@ extension LocationTracker {
         }
 
         func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            assert(manager === master, "Only can handle calls for the master's location manager.")
+            assert(manager === master.manager, "Only can handle calls for the master's location manager.")
             master.handleUpdateLocations(locations)
         }
 
         func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
-            assert(manager === master, "Only can handle calls for the master's location manager.")
+            assert(manager === master.manager, "Only can handle calls for the master's location manager.")
             master.handleChangeAuthorizationStatus(status)
         }
 
         func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-            assert(manager === master, "Only can handle calls for the master's location manager.")
+            assert(manager === master.manager, "Only can handle calls for the master's location manager.")
             master.handleError(error)
         }
 
         #if os(iOS)
 
         func locationManagerDidPauseLocationUpdates(_ manager: CLLocationManager) {
-            assert(manager === master, "Only can handle calls for the master's location manager.")
+            assert(manager === master.manager, "Only can handle calls for the master's location manager.")
             master.handlePauseLocationUpdates()
         }
 
         func locationManagerDidResumeLocationUpdates(_ manager: CLLocationManager) {
-            assert(manager === master, "Only can handle calls for the master's location manager.")
+            assert(manager === master.manager, "Only can handle calls for the master's location manager.")
             master.handleResumeLocationUpdates()
         }
 
         #endif
 
         func locationManager(_ manager: CLLocationManager, didFinishDeferredUpdatesWithError error: Error?) {
-            assert(manager === master, "Only can handle calls for the master's location manager.")
+            assert(manager === master.manager, "Only can handle calls for the master's location manager.")
             master.handleFinishDeferredUpdatesWithError(error)
         }
 

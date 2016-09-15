@@ -21,7 +21,6 @@ final class DeferredTracker: LocationTracker {
 
     private let deferredDistance: CLLocationDistance
     private let deferredTimeout: TimeInterval
-    private var isDeferring = false
 
     init(desiredAccuracy: CLLocationAccuracy, deferredDistance: CLLocationDistance, deferredTimeout: TimeInterval) {
         assert(desiredAccuracy == kCLLocationAccuracyBestForNavigation || desiredAccuracy == kCLLocationAccuracyBest,
@@ -41,8 +40,6 @@ final class DeferredTracker: LocationTracker {
 
         if !CLLocationManager.locationServicesEnabled() {
             handleError(Failure.standardLocationServicesUnavailable)
-        } else if !CLLocationManager.deferredLocationUpdatesAvailable() {
-            handleError(Failure.deferredLocationServicesUnavailable)
         }
     }
 
@@ -52,7 +49,6 @@ final class DeferredTracker: LocationTracker {
     }
 
     override func stopTracking() {
-        // manager.disallowDeferredLocationUpdates()
         manager.stopUpdatingLocation()
         super.stopTracking()
     }
@@ -60,14 +56,14 @@ final class DeferredTracker: LocationTracker {
     override func handleUpdateLocations(_ locations: [CLLocation]) {
         super.handleUpdateLocations(locations)
 
-        if !isDeferring {
-            isDeferring = true
+        if !_deferring.value && CLLocationManager.deferredLocationUpdatesAvailable() {
+            _deferring.value = true
             manager.allowDeferredLocationUpdates(untilTraveled: deferredDistance, timeout: deferredTimeout)
         }
     }
 
     override func handleFinishDeferredUpdatesWithError(_ error: Error?) {
-        isDeferring = false
+        _deferring.value = false
 
         if let error = error {
             handleError(error)

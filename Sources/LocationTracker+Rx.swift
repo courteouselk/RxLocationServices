@@ -13,6 +13,8 @@ public extension LocationTracker {
 
     public struct Rx {
 
+        // MARK: - Public API
+
         /// Reactive stream of the retrieved user locations.
 
         public let location: Observable<CLLocation>
@@ -35,18 +37,33 @@ public extension LocationTracker {
 
         public let paused: Observable<Bool>
 
-        // MARK:
+        /// Reactive stream of deferring state of the location updates.
+        ///
+        /// If your app is in the background and the system is able to optimize its power usage, the 
+        /// location manager tells the GPS hardware to store new locations internally until the 
+        /// specified distance or timeout conditions are met.
+        ///
+        /// - seealso:
+        ///   - [CLLocationManager.allowDeferredLocationUpdates(untilTraveled:timeout:)](apple-reference-documentation://hs64cDNHc7)
 
-        init() {
+        public let deferring: Observable<Bool>
+
+        // MARK: - Internal API
+
+        static let empty = Rx()
+
+        private init() {
             location = Observable.empty()
             error = Observable.empty()
             paused = Observable.empty()
+            deferring = Observable.empty()
         }
 
-        init(location: Observable<CLLocation>, error: Observable<Error>, paused: Observable<Bool>) {
+        init(location: Observable<CLLocation>, error: Observable<Error>, paused: Observable<Bool>, deferring: Observable<Bool>) {
             self.location = location
             self.error = error
             self.paused = paused
+            self.deferring = deferring
         }
 
     }

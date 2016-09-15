@@ -100,7 +100,7 @@ public class LocationTracker {
 
     /// Reactive streams.
 
-    public private (set) var rx = Rx()
+    public private (set) var rx = Rx.empty
 
     // MARK: - Internal API
 
@@ -110,6 +110,7 @@ public class LocationTracker {
     let _location = ReplaySubject<CLLocation>.create(bufferSize: 1)
     let _error = ReplaySubject<Error>.create(bufferSize: 1)
     let _paused = ReplaySubject<Bool>.create(bufferSize: 1)
+    let _deferring = Variable<Bool>(false)
 
     let manager = CLLocationManager()
     var delegate: Delegate! = nil
@@ -140,7 +141,8 @@ public class LocationTracker {
         rx = Rx(
             location: rx_location,
             error: _error.asObservable(),
-            paused: _paused.asObservable()
+            paused: _paused.asObservable(),
+            deferring: _deferring.asObservable()
         )
 
         delegate = Delegate(master: self)
@@ -154,15 +156,12 @@ public class LocationTracker {
     /// Starts tracking of the location.
 
     func startTracking() {
-        print("startTracking")
         requestAuthorization()
     }
 
     /// Stops tracking of the location
 
-    func stopTracking() {
-        print("stopTracking")
-    }
+    func stopTracking() { }
 
     /// Once `rx.location` observable is subscribed to, this is called.
 
@@ -170,8 +169,6 @@ public class LocationTracker {
         assert(subscribersCount >= 0, "Subscribers count can not be negative")
 
         subscribersCount += 1
-
-        print("subscribers count is \(subscribersCount)")
 
         if subscribersCount == 1 {
             startTracking()
@@ -182,8 +179,6 @@ public class LocationTracker {
 
     final func notifyUnsubscribed() {
         subscribersCount -= 1
-
-        print("subscribers count is \(subscribersCount)")
 
         assert(subscribersCount >= 0, "Subscribers count can not be negative")
 
@@ -225,16 +220,17 @@ public class LocationTracker {
     /// Respond to the event of an error.
 
     func handleError(_ error: Error) {
-        let ns_error = error as NSError
-
         self.error = error
+
+        let ns_error = error as NSError
 
         if let error = error as? LocationTracker.Failure {
             _location.onError(error)
-        } else if ns_error.domain == "kCLErrorDomain" && LocationTracker.terminalCLErrorCodes.contains(ns_error.code) {
+        } else if ns_error.domain == CLError.errorDomain && LocationTracker.terminalCLErrorCodes.contains(ns_error.code) {
             _location.onError(error)
         }
 
+        
         _error.onNext(error)
     }
 
