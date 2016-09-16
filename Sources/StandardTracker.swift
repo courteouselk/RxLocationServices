@@ -11,8 +11,8 @@ import RxSwift
 
 final class StandardLocationTracker: LocationTracker {
 
-    init(desiredAccuracy: CLLocationAccuracy, distanceFilter: Double, requestAuthorizeAlways: Bool) {
-        super.init(requestAuthorizeAlways: requestAuthorizeAlways)
+    init(desiredAccuracy: CLLocationAccuracy, distanceFilter: Double, backgroundUpdates: Bool) {
+        super.init(backgroundUpdates: backgroundUpdates)
 
         manager.desiredAccuracy = desiredAccuracy
         manager.distanceFilter = distanceFilter

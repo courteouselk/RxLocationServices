@@ -117,14 +117,14 @@ public class LocationTracker {
     let manager = CLLocationManager()
     var delegate: Delegate! = nil
 
-    let requestAuthorizeAlways: Bool
+    let backgroundUpdates: Bool
 
     private var subscribersCount = 0
 
     // MARK:
 
-    init(requestAuthorizeAlways: Bool) {
-        self.requestAuthorizeAlways = requestAuthorizeAlways
+    init(backgroundUpdates: Bool) {
+        self.backgroundUpdates = backgroundUpdates
 
         let rx_location = _location
             .observeOn(LocationTracker.serialScheduler)
@@ -202,7 +202,7 @@ public class LocationTracker {
     /// Respond to the event of a change in the authorization status.
 
     func handleChangeAuthorizationStatus(_ status: CLAuthorizationStatus) {
-        switch (status, requestAuthorizeAlways) {
+        switch (status, backgroundUpdates) {
 
         case (.restricted, _):
             handleError(Failure.locationServicesRestricted)
@@ -261,7 +261,7 @@ public class LocationTracker {
     /// Checks current authorization, requests one if needed, throws an error if none is given.
 
     func requestAuthorization() {
-        switch (CLLocationManager.authorizationStatus(), requestAuthorizeAlways) {
+        switch (CLLocationManager.authorizationStatus(), backgroundUpdates) {
 
         case (.restricted, _):
             handleError(Failure.locationServicesRestricted)
@@ -291,7 +291,7 @@ public class LocationTracker {
     /// Checks current authorization, requests one if needed, throws an error if none is given.
 
     func requestAuthorization() {
-        switch (CLLocationManager.authorizationStatus(), requestAuthorizeAlways) {
+        switch (CLLocationManager.authorizationStatus(), backgroundUpdates) {
 
         case (.restricted, _):
             handleError(Failure.locationServicesRestricted)

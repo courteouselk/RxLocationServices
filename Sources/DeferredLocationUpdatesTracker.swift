@@ -22,13 +22,14 @@ final class DeferredLocationUpdatesTracker: LocationTracker {
     private let deferredDistance: CLLocationDistance
     private let deferredTimeout: TimeInterval
 
-    init(deferredDistance: CLLocationDistance, deferredTimeout: TimeInterval, extendAccuracyForNavigation: Bool) {
+    init(deferredDistance: CLLocationDistance, deferredTimeout: TimeInterval, activityType: CLActivityType, accuracyForNavigation: Bool) {
         self.deferredDistance = deferredDistance
         self.deferredTimeout = deferredTimeout
 
-        super.init(requestAuthorizeAlways: true)
+        super.init(backgroundUpdates: true)
 
-        manager.desiredAccuracy = extendAccuracyForNavigation ? kCLLocationAccuracyBestForNavigation : kCLLocationAccuracyBest
+        manager.activityType = activityType
+        manager.desiredAccuracy = accuracyForNavigation ? kCLLocationAccuracyBestForNavigation : kCLLocationAccuracyBest
         manager.distanceFilter = kCLDistanceFilterNone
     }
 

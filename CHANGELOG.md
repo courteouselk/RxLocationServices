@@ -5,5 +5,5 @@
 - LocationTracker API with:
   - Standard location tracker (iOS, macOS).
   - Significant change location tracker (iOS, macOS).
-  - Deferred updates location tracker (iOS 9.0+ only).
+  - Deferred updates location tracker (iOS).
 - MIT license (the project is in private repository, though, until it gets mature).

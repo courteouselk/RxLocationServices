@@ -12,7 +12,7 @@ import RxSwift
 final class SignificantLocationChangeTracker: LocationTracker {
 
     init() {
-        super.init(requestAuthorizeAlways: true)
+        super.init(backgroundUpdates: true)
     }
 
     override func requestAuthorization() {

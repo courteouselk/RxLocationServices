@@ -24,19 +24,21 @@ extension LocationTracker {
     /// hardware like GPS, which consumes more power.
     ///
     /// - parameters:
+    ///
     ///   - desiredAccuracy : The accuracy of the location data.
     ///   - distanceFilter  : The minimum distance (measured in meters) a device must move
     ///                       horizontally before an update event is generated.
     ///
     /// - seealso:
+    ///
     ///   - [CLLocationManager](apple-reference-documentation://hs8c5staNS#overview)
 
     public static func standardTracker(desiredAccuracy: CLLocationAccuracy,
-                                       distanceFilter: Double) -> LocationTracker {
+                                       distanceFilter: Double = kCLDistanceFilterNone) -> LocationTracker {
         return StandardLocationTracker(
             desiredAccuracy: desiredAccuracy,
             distanceFilter: distanceFilter,
-            requestAuthorizeAlways: true
+            backgroundUpdates: true
         )
     }
 
@@ -48,10 +50,11 @@ extension LocationTracker {
     /// standard location services.
     ///
     /// - seealso:
+    ///
     ///   - [CLLocationManager](apple-reference-documentation://hs8c5staNS#overview)
 
     public static func significantChangeTracker() -> LocationTracker {
-        return SignificantLocationChangeTracker(requestAuthorizeAlways: true)
+        return SignificantLocationChangeTracker()
     }
 
 }
