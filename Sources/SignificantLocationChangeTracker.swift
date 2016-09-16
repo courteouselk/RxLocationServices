@@ -11,6 +11,10 @@ import RxSwift
 
 final class SignificantLocationChangeTracker: LocationTracker {
 
+    init() {
+        super.init(requestAuthorizeAlways: true)
+    }
+
     override func requestAuthorization() {
         super.requestAuthorization()
 

@@ -55,32 +55,34 @@ extension LocationTracker {
     /// are met, the location manager may begin deferring the delivery of events.
     ///
     /// - parameters:
-    ///   - deferredDistance      : The distance (in meters) from the current location that must be
-    ///                             travelled before event delivery resumes. To specify an unlimited
-    ///                             distance, pass the `CLLocationDistanceMax` constant.
-    ///   - deferredTimeout       : The amount of time (in seconds) from the current time that must
-    ///                             pass before event delivery resumes. To specify an unlimited
-    ///                             amount of time, pass the `CLTimeIntervalMax` constant.
-    ///   - accuracyForNavigation : Deferred location updates are only available in the modes of
-    ///                            `kCLLocationAccuracyBest` or `kCLLocationAccuracyBestForNavigation`.
-    ///                             Setting this parameters to `true` selects the latter, while the
-    ///                            `false` (default) opts for the former.
+    ///   - deferredDistance            : The distance (in meters) from the current location that
+    ///                                   must be travelled before event delivery resumes. To
+    ///                                   specify an unlimited distance, pass the `CLLocationDistanceMax`
+    ///                                   constant.
+    ///   - deferredTimeout             : The amount of time (in seconds) from the current time that
+    ///                                   must pass before event delivery resumes. To specify an
+    ///                                   unlimited amount of time, pass the `CLTimeIntervalMax`
+    ///                                   constant.
+    ///   - extendAccuracyForNavigation : Deferred location updates are only available in the modes
+    ///                                   of `kCLLocationAccuracyBest` or `kCLLocationAccuracyBestForNavigation`.
+    ///                                   Setting this parameters to `true` selects the latter,
+    ///                                   while the `false` (default) opts for the former.
     ///
     /// - seealso:
     ///   - [CLLocationManager.allowDeferredLocationUpdates(untilTraveled:timeout:)](apple-reference-documentation://hs64cDNHc7)
+    ///   - [Energy Efficiency Guide for iOS Apps](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/LocationBestPractices.html#//apple_ref/doc/uid/TP40015243-CH24-SW8)
     ///   - [stackoverflow.com](http://stackoverflow.com/a/14509263/1542569)
     ///   - [stackoverflow.com](http://stackoverflow.com/a/26345001/1542569)
 
-    public static func deferredTracker(deferredDistance: CLLocationDistance,
-                                       deferredTimeout: TimeInterval,
-                                       accuracyForNavigation: Bool = false) -> LocationTracker {
-        return DeferredTracker(
+    public static func deferredLocationUpdatesTracker(deferredDistance: CLLocationDistance,
+                                                      deferredTimeout: TimeInterval,
+                                                      extendAccuracyForNavigation: Bool = false) -> LocationTracker {
+        return DeferredLocationUpdatesTracker(
             deferredDistance: deferredDistance,
             deferredTimeout: deferredTimeout,
-            accuracyForNavigation: accuracyForNavigation
+            extendAccuracyForNavigation: extendAccuracyForNavigation
         )
     }
-
 
     /// Creates a signingicant-change tracker instance.
     ///
@@ -89,16 +91,26 @@ extension LocationTracker {
     /// requires the presence of cellular hardware and delivers events less frequently than the
     /// standard location services.
     ///
-    /// - parameters:
-    ///   - requestAuthorizeAlways : Whether to requests permission to use location services
-    ///                              whenever the app is running (`true`) or only while the app is
-    ///                              in the foreground (`false`).  Default value is `false`.
+    /// The significant location change service delivers events normally while an app is running in 
+    /// the foreground or background. For a terminated iOS app, this service relaunches the app to 
+    /// deliver events.  Use of this service requires “Always” authorization from the user.
+    ///
+    /// - important: 
+    ///
+    ///   Region and visit monitoring are sufficient for most use cases and should always be 
+    ///   considered before significant-change location updates.  In the event significant-change
+    ///   location updates are needed, keep in mind the following, which can actually result in
+    ///   higher energy use if not employed effectively:
+    ///   - Significant-change location updates wake the system and your app once every 15 minutes, 
+    ///     at minimum, even if no location changes have occurred.
+    ///   - Significant-change location updates run continuously, around the clock, until you stop them.
     ///
     /// - seealso:
     ///   - [CLLocationManager](apple-reference-documentation://hs8c5staNS#overview)
+    ///   - [Energy Efficiency Guide for iOS Apps](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/LocationBestPractices.html#//apple_ref/doc/uid/TP40015243-CH24-SW4)
 
-    public static func significantChangeTracker(requestAuthorizeAlways: Bool = false) -> LocationTracker {
-        return SignificantLocationChangeTracker(requestAuthorizeAlways: requestAuthorizeAlways)
+    public static func significantChangeTracker() -> LocationTracker {
+        return SignificantLocationChangeTracker()
     }
 
 }

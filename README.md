@@ -2,7 +2,7 @@
 
 A set of reactive wrapper classes to handle common location services related tasks.
 
-## LocationTracker
+## `LocationTracker`
 
 Reactive wrapper for location tracking functionality of `CLLocationManager`.
 
@@ -10,4 +10,25 @@ Reactive wrapper for location tracking functionality of `CLLocationManager`.
 >
 > - `NSLocationWhenInUseUsageDescription` with the user prompt text for requesting a permission to use location services when the app is in use.
 > - `NSLocationAlwaysUsageDescription` with the user prompt text for requesting a permission to use location services whenever the app is running.
-> - `UIBackgroundModes` includin the `location` value to receive location updates when the app is suspended.
+> - `UIBackgroundModes` including the `location` value to receive location updates when the app is suspended.
+
+There are three types of trackers available:
+
+- Standard tracker
+- Deferred location updates tracker
+- Significant location change tracker
+
+## Standard tracker
+
+````swift
+
+````
+
+## Deferred location updates tracker
+
+````swift
+
+````
+
+## Significant location change tracker
+

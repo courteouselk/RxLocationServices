@@ -1,5 +1,5 @@
 //
-//  DeferredTracker.swift
+//  DeferredLocationUpdatesTracker.swift
 //  RxLocationServices
 //
 //  Created by Anton Bronnikov on 13/09/2016.
@@ -11,7 +11,7 @@
 import CoreLocation
 import RxSwift
 
-final class DeferredTracker: LocationTracker {
+final class DeferredLocationUpdatesTracker: LocationTracker {
 
     private static let terminalCLErrorCodes: Set<Int> = [
         CLError.deferredFailed.rawValue, CLError.deferredNotUpdatingLocation.rawValue,
@@ -22,13 +22,14 @@ final class DeferredTracker: LocationTracker {
     private let deferredDistance: CLLocationDistance
     private let deferredTimeout: TimeInterval
 
-    init(deferredDistance: CLLocationDistance, deferredTimeout: TimeInterval, accuracyForNavigation: Bool) {
+    init(deferredDistance: CLLocationDistance, deferredTimeout: TimeInterval, extendAccuracyForNavigation: Bool) {
         self.deferredDistance = deferredDistance
         self.deferredTimeout = deferredTimeout
 
         super.init(requestAuthorizeAlways: true)
 
-        manager.desiredAccuracy = accuracyForNavigation ? kCLLocationAccuracyBestForNavigation : kCLLocationAccuracyBest
+        manager.desiredAccuracy = extendAccuracyForNavigation ? kCLLocationAccuracyBestForNavigation : kCLLocationAccuracyBest
+
         manager.distanceFilter = kCLDistanceFilterNone
     }
 

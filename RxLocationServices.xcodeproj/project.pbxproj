@@ -25,8 +25,8 @@
 		BAD1383D1D89FBA9008244BF /* LocationTracker+Rx.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAD1383B1D89FBA9008244BF /* LocationTracker+Rx.swift */; };
 		BAEFC5F21D87C91700DE8F0D /* LocationTracker+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F11D87C91700DE8F0D /* LocationTracker+Delegate.swift */; };
 		BAEFC5F31D87C91700DE8F0D /* LocationTracker+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F11D87C91700DE8F0D /* LocationTracker+Delegate.swift */; };
-		BAEFC5F51D88516000DE8F0D /* DeferredTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* DeferredTracker.swift */; };
-		BAEFC5F61D88516000DE8F0D /* DeferredTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* DeferredTracker.swift */; };
+		BAEFC5F51D88516000DE8F0D /* DeferredLocationUpdatesTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* DeferredLocationUpdatesTracker.swift */; };
+		BAEFC5F61D88516000DE8F0D /* DeferredLocationUpdatesTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAEFC5F41D88516000DE8F0D /* DeferredLocationUpdatesTracker.swift */; };
 		BAF82A2D1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift in Sources */ = {isa = PBXBuildFile; fileRef = BAF82A2C1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift */; };
 /* End PBXBuildFile section */
 
@@ -52,7 +52,7 @@
 		BAD1382E1D8986DC008244BF /* LocationTracker+Failure.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LocationTracker+Failure.swift"; path = "Sources/LocationTracker+Failure.swift"; sourceTree = "<group>"; };
 		BAD1383B1D89FBA9008244BF /* LocationTracker+Rx.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LocationTracker+Rx.swift"; path = "Sources/LocationTracker+Rx.swift"; sourceTree = "<group>"; };
 		BAEFC5F11D87C91700DE8F0D /* LocationTracker+Delegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "LocationTracker+Delegate.swift"; path = "Sources/LocationTracker+Delegate.swift"; sourceTree = "<group>"; };
-		BAEFC5F41D88516000DE8F0D /* DeferredTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeferredTracker.swift; path = Sources/DeferredTracker.swift; sourceTree = "<group>"; };
+		BAEFC5F41D88516000DE8F0D /* DeferredLocationUpdatesTracker.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DeferredLocationUpdatesTracker.swift; path = Sources/DeferredLocationUpdatesTracker.swift; sourceTree = "<group>"; };
 		BAF82A2C1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CLAuthorizationStatus.swift; path = Sources/CLAuthorizationStatus.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -163,7 +163,7 @@
 				BAD1382E1D8986DC008244BF /* LocationTracker+Failure.swift */,
 				BAEFC5F11D87C91700DE8F0D /* LocationTracker+Delegate.swift */,
 				BA6829BE1D7B2FE7009E8883 /* StandardTracker.swift */,
-				BAEFC5F41D88516000DE8F0D /* DeferredTracker.swift */,
+				BAEFC5F41D88516000DE8F0D /* DeferredLocationUpdatesTracker.swift */,
 				BA6829BB1D7B2F33009E8883 /* SignificantLocationChangeTracker.swift */,
 			);
 			name = LocationTracker;
@@ -299,7 +299,7 @@
 				BA79E0B51D87352800ADF91C /* LocationTracker+iOS.swift in Sources */,
 				BA6829BF1D7B2FE7009E8883 /* StandardTracker.swift in Sources */,
 				BAD1382F1D8986DC008244BF /* LocationTracker+Failure.swift in Sources */,
-				BAEFC5F51D88516000DE8F0D /* DeferredTracker.swift in Sources */,
+				BAEFC5F51D88516000DE8F0D /* DeferredLocationUpdatesTracker.swift in Sources */,
 				BAD1383C1D89FBA9008244BF /* LocationTracker+Rx.swift in Sources */,
 				BAF82A2D1D81DF9C0003B7F5 /* CLAuthorizationStatus.swift in Sources */,
 				BA6829B91D7B2D38009E8883 /* LocationTracker.swift in Sources */,
@@ -310,7 +310,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				BAEFC5F61D88516000DE8F0D /* DeferredTracker.swift in Sources */,
+				BAEFC5F61D88516000DE8F0D /* DeferredLocationUpdatesTracker.swift in Sources */,
 				BA6829BD1D7B2F33009E8883 /* SignificantLocationChangeTracker.swift in Sources */,
 				BA6829C01D7B2FE7009E8883 /* StandardTracker.swift in Sources */,
 				BAEFC5F31D87C91700DE8F0D /* LocationTracker+Delegate.swift in Sources */,

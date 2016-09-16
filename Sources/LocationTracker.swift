@@ -56,6 +56,7 @@ public class LocationTracker {
     ///
     /// - seealso:
     ///   - [CLLocationManager.pausesLocationUpdatesAutomatically](apple-reference-documentation://hsrH9OEXi4).
+    ///   - [Energy Efficiency Guide for iOS Apps](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/LocationBestPractices.html#//apple_ref/doc/uid/TP40015243-CH24-SW7)
 
     public var pausesLocationUpdatesAutomatically: Bool {
         get { return manager.pausesLocationUpdatesAutomatically }
@@ -66,13 +67,14 @@ public class LocationTracker {
     ///
     /// The default value for this property is `false`.
     ///
-    /// If you set this property to `true` please make sure to include the `UIBackgroundModes` key 
-    /// with the `location` value in your app’s `info.plist` file.  Please refer to the documentation
-    /// on [CLLocationManager.allowsBackgroundLocationUpdates](apple-reference-documentation://hsBpvPO12H)
+    /// If you set this property to `true` make sure to include the `UIBackgroundModes` key with
+    /// the `location` value in your app’s `info.plist` file.  Please refer to the documentation on
+    /// [CLLocationManager.allowsBackgroundLocationUpdates](apple-reference-documentation://hsBpvPO12H)
     /// for further details.
     ///
     /// - seealso:
     ///   - [CLLocationManager.allowsBackgroundLocationUpdates](apple-reference-documentation://hsBpvPO12H)
+    ///   - [Energy Efficiency Guide for iOS Apps](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/LocationBestPractices.html#//apple_ref/doc/uid/TP40015243-CH24-SW7)
     ///   - [stackoverflow.com](http://stackoverflow.com/q/30808192/1542569)
 
     @available(iOS 9.0, *) public var allowsBackgroundLocationUpdates: Bool {
@@ -249,7 +251,7 @@ public class LocationTracker {
     /// Respond to the event of deferred updates finish.
 
     func handleFinishDeferredUpdatesWithError(_ error: Error?) {
-        // This will be only implemented by DeferredTracker
+        // This will be only implemented by DeferredLocationUpdatesTracker
     }
 
     #if os(iOS)
