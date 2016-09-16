@@ -37,7 +37,7 @@ public extension LocationTracker {
 
         public let paused: Observable<Bool>
 
-        /// Reactive stream of deferring state of the location updates.
+        /// Reactive stream of allowed deferring state for the location updates.
         ///
         /// If your app is in the background and the system is able to optimize its power usage, the 
         /// location manager tells the GPS hardware to store new locations internally until the 
@@ -46,7 +46,7 @@ public extension LocationTracker {
         /// - seealso:
         ///   - [CLLocationManager.allowDeferredLocationUpdates(untilTraveled:timeout:)](apple-reference-documentation://hs64cDNHc7)
 
-        public let deferring: Observable<Bool>
+        public let deferringAllowed: Observable<Bool>
 
         // MARK: - Internal API
 
@@ -56,14 +56,14 @@ public extension LocationTracker {
             location = Observable.empty()
             error = Observable.empty()
             paused = Observable.empty()
-            deferring = Observable.empty()
+            deferringAllowed = Observable.empty()
         }
 
-        init(location: Observable<CLLocation>, error: Observable<Error>, paused: Observable<Bool>, deferring: Observable<Bool>) {
+        init(location: Observable<CLLocation>, error: Observable<Error>, paused: Observable<Bool>, deferringAllowed: Observable<Bool>) {
             self.location = location
             self.error = error
             self.paused = paused
-            self.deferring = deferring
+            self.deferringAllowed = deferringAllowed
         }
 
     }

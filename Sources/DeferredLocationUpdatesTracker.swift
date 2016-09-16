@@ -29,7 +29,6 @@ final class DeferredLocationUpdatesTracker: LocationTracker {
         super.init(requestAuthorizeAlways: true)
 
         manager.desiredAccuracy = extendAccuracyForNavigation ? kCLLocationAccuracyBestForNavigation : kCLLocationAccuracyBest
-
         manager.distanceFilter = kCLDistanceFilterNone
     }
 
@@ -54,14 +53,14 @@ final class DeferredLocationUpdatesTracker: LocationTracker {
     override func handleUpdateLocations(_ locations: [CLLocation]) {
         super.handleUpdateLocations(locations)
 
-        if !_deferring.value && CLLocationManager.deferredLocationUpdatesAvailable() {
-            _deferring.value = true
+        if !_deferringAllowed.value && CLLocationManager.deferredLocationUpdatesAvailable() {
+            _deferringAllowed.value = true
             manager.allowDeferredLocationUpdates(untilTraveled: deferredDistance, timeout: deferredTimeout)
         }
     }
 
     override func handleFinishDeferredUpdatesWithError(_ error: Error?) {
-        _deferring.value = false
+        _deferringAllowed.value = false
 
         if let error = error {
             handleError(error)

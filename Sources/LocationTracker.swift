@@ -112,7 +112,7 @@ public class LocationTracker {
     let _location = ReplaySubject<CLLocation>.create(bufferSize: 1)
     let _error = ReplaySubject<Error>.create(bufferSize: 1)
     let _paused = ReplaySubject<Bool>.create(bufferSize: 1)
-    let _deferring = Variable<Bool>(false)
+    let _deferringAllowed = Variable<Bool>(false)
 
     let manager = CLLocationManager()
     var delegate: Delegate! = nil
@@ -144,7 +144,7 @@ public class LocationTracker {
             location: rx_location,
             error: _error.asObservable(),
             paused: _paused.asObservable(),
-            deferring: _deferring.asObservable()
+            deferringAllowed: _deferringAllowed.asObservable()
         )
 
         delegate = Delegate(master: self)
