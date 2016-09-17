@@ -8,13 +8,15 @@ A framework of reactive wrapper classes to handle common location services relat
 
 Reactive wrapper for location tracking functionality provided by `CLLocationManager`.
 
-> The following elements might have to be included into your iOS app's `Info.plist` file for `LocationTracker` to work:
->
-> Key                                   | Description
-> ---                                   | ---
-> `NSLocationWhenInUseUsageDescription` | Text for the prompt that requests user's permission to use location services while the app is running in foreground.
-> `NSLocationAlwaysUsageDescription`    | Prompt for the permission to use location services whenever the app is running (both background and foreground).
-> `UIBackgroundModes`                   | Include `location` value for the app to be able to receive location updates even when it is suspended.
+The following elements might have to be included into your iOS app's `Info.plist` file for `LocationTracker` to work:
+
+Key                                   | Description
+---                                   | ---
+`NSLocationWhenInUseUsageDescription` | Text for the prompt that requests user's permission to use location services while the app is running in foreground.
+`NSLocationAlwaysUsageDescription`    | Prompt for the permission to use location services whenever the app is running (both background and foreground).
+`UIBackgroundModes`                   | Include `location` value for the app to be able to receive location updates even when it is suspended.
+
+Provided that all necessary keys from the above table are in your app's `Info.plist`, the rest will be taken care of by the framework.  It will request necessary authorization from the user at the right moment (that is, just before the location services have to be used), will start GPS hardware when it's necessary, and stop it when it's not needed any more.
 
 There are three types of trackers available:
 
@@ -101,3 +103,31 @@ let bigChangeTracker = LocationTracker.significantChangeTracker()
 
 - iOS
 - macOS
+
+### Use
+
+Once the tracker is created, it's not yet doing any work.  In order to get the location data from it you need to subscribe to its reactive outlet.
+
+**Example**
+
+````swift
+let disposeBag = DisposeBag()
+let timer = Observable<Int>.timer(60.0, scheduler: ConcurrentMainScheduler.instance)
+let tracker = LocationTracker.standardTracker()
+
+tracker.rx.location
+    // Get the updates every 5+ seconds
+    .distinctUntilChanged { (previous, current) -> Bool in
+        current.timestamp.timeIntervalSince(previous.timestamp) < 5.0
+    }
+    // ... and only until the timer expires after 1 minute
+    .takeUntil(timer)
+    .subscribe {
+        print($0)
+    }
+    .addDisposableTo(disposeBag)
+````
+
+The code above will create a basic tracker and make it produce location updates at 5 seconds intervals for 1 minute, after which this tracker will automatically stop GPS services (just at the moment the only subscriber is disposed of).
+
+If it were to have another subscription afterwards, then it would start GPS again and resume `rx.location` stream.

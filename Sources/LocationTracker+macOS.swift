@@ -33,7 +33,7 @@ extension LocationTracker {
     ///
     ///   - [CLLocationManager](apple-reference-documentation://hs8c5staNS#overview)
 
-    public static func standardTracker(desiredAccuracy: CLLocationAccuracy,
+    public static func standardTracker(desiredAccuracy: CLLocationAccuracy = kCLLocationAccuracyThreeKilometers,
                                        distanceFilter: Double = kCLDistanceFilterNone) -> LocationTracker {
         return StandardLocationTracker(
             desiredAccuracy: desiredAccuracy,
