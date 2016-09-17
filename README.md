@@ -1,3 +1,7 @@
+[![Swift 3.0](https://img.shields.io/badge/Swift-3.0-orange.svg?style=flat)](https://developer.apple.com/swift/)
+[![RxSwift 3.0](https://img.shields.io/badge/RxSwift-3.0-A60079.svg?style=flat)](https://github.com/ReactiveX/RxSwift/)
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+
 # `RxLocationServices`
 
 A framework of reactive wrapper classes to handle common location services related tasks:
@@ -18,14 +22,14 @@ Key                                   | Description
 `NSLocationAlwaysUsageDescription`    | Prompt for the permission to use location services whenever the app is running (both background and foreground).
 `UIBackgroundModes`                   | Include `location` value for the app to be able to receive location updates even when it is suspended.
 
-Provided that all necessary keys from the above table are in your app's `Info.plist`, the rest will be taken care of by the framework.  It will request necessary authorization from the user at the right moment (that is, just before the location services have to be used), will start GPS hardware when it's necessary, and stop it when it's not needed any more.
+Provided that all necessary keys from the above table are in your app's `Info.plist`, the rest will be taken care of by the framework.  It will request necessary authorization from the user at the right moment (that is, just before the location services have to be used), it will start GPS hardware when it's necessary, and stop it when it's not needed any more.
 
-**Example**
+_Example_
 
 ````swift
-let disposeBag = DisposeBag()
-let timer = Observable<Int>.timer(60.0, scheduler: ConcurrentMainScheduler.instance)
 let tracker = LocationTracker.standardTracker()
+let timer = Observable<Int>.timer(60.0, scheduler: ConcurrentMainScheduler.instance)
+let disposeBag = DisposeBag()
 
 tracker.rx.location
     // Get the updates every 5+ seconds
@@ -62,7 +66,7 @@ Most usual kind of a location tracker.  You can specify desired accuracy, distan
 
 The standard location service is most appropriate for apps that deliver location-related information directly to the user but it may be used by other types of apps too.
 
-**Example**
+_Example_
 
 ````swift
 let standardTracker = LocationTracker.standardTracker(
@@ -72,12 +76,12 @@ let standardTracker = LocationTracker.standardTracker(
 )
 ````
 
-**See also**
+_See also_
 
 - [CLLocationManager](https://developer.apple.com/reference/corelocation/cllocationmanager#overview)
 - [CLLocationManager.startUpdatingLocation()](https://developer.apple.com/reference/corelocation/cllocationmanager/1423750-startupdatinglocation)
 
-**Availability**
+_Availability_
 
 - iOS
 - macOS
@@ -88,7 +92,7 @@ This is a type of a tracker that allows GPS hardware to accumulate (batch) locat
 
 Use this tracker in situations where you want location data with GPS accuracy but do not need to process that data right away.  If your app is in the background and the system is able to optimize its power usage, the location manager tells the GPS hardware to store new locations internally until the specified distance or timeout conditions are met.  If your app is in the foreground, the location manager does not defer the deliver of events but does monitor for the specified criteria. If your app moves to the background before the criteria are met, the location manager may begin deferring the delivery of events.
 
-**Example**
+_Example_
 
 ````swift
 let deferringTracker = LocationTracker.deferredLocationUpdatesTracker(
@@ -99,7 +103,7 @@ let deferringTracker = LocationTracker.deferredLocationUpdatesTracker(
 )
 ````
 
-**See also**
+_See also_
 
 - [CLLocationManager](https://developer.apple.com/reference/corelocation/cllocationmanager#overview)
 - [CLLocationManager.allowDeferredLocationUpdates(untilTraveled:timeout:)](https://developer.apple.com/reference/corelocation/cllocationmanager/1620547-allowdeferredlocationupdates)
@@ -107,7 +111,7 @@ let deferringTracker = LocationTracker.deferredLocationUpdatesTracker(
 - [Answer: How to work with deferred location iOS 6?](http://stackoverflow.com/a/14509263/1542569)
 - [Answer: ios deferred location updates fail to defer](http://stackoverflow.com/a/26345001/1542569)
 
-**Availability**
+_Availability_
 
 - iOS
 
@@ -119,19 +123,19 @@ The significant location change service is better suited for apps that want to g
 
 The significant location change service delivers events normally while an app is running in the foreground or background.  For a terminated iOS app, this service relaunches the app to deliver events.  Use of this service requires "Always" authorization from the user.
 
-**Example**
+_Example_
 
 ````swift
 let bigChangeTracker = LocationTracker.significantChangeTracker()
 ````
 
-**See also**
+_See also_
 
 - [CLLocationManager](https://developer.apple.com/reference/corelocation/cllocationmanager#overview)
 - [CLLocationManager.startMonitoringSignificantLocationChanges()](https://developer.apple.com/reference/corelocation/cllocationmanager/1423531-startmonitoringsignificantlocati)
 - [Energy Efficiency Guide for iOS Apps](https://developer.apple.com/library/content/documentation/Performance/Conceptual/EnergyGuide-iOS/LocationBestPractices.html#//apple_ref/doc/uid/TP40015243-CH24-SW4)
 
-**Availability**
+_Availability_
 
 - iOS
 - macOS
