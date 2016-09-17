@@ -8,6 +8,8 @@ A framework of reactive wrapper classes to handle common location services relat
 
 Reactive wrapper for location tracking functionality provided by `CLLocationManager`.
 
+### Use
+
 The following elements might have to be included into your iOS app's `Info.plist` file for `LocationTracker` to work:
 
 Key                                   | Description
@@ -18,13 +20,43 @@ Key                                   | Description
 
 Provided that all necessary keys from the above table are in your app's `Info.plist`, the rest will be taken care of by the framework.  It will request necessary authorization from the user at the right moment (that is, just before the location services have to be used), will start GPS hardware when it's necessary, and stop it when it's not needed any more.
 
+**Example**
+
+````swift
+let disposeBag = DisposeBag()
+let timer = Observable<Int>.timer(60.0, scheduler: ConcurrentMainScheduler.instance)
+let tracker = LocationTracker.standardTracker()
+
+tracker.rx.location
+    // Get the updates every 5+ seconds
+    .distinctUntilChanged { (previous, current) -> Bool in
+        current.timestamp.timeIntervalSince(previous.timestamp) < 5.0
+    }
+    // ... and only until the 1-minute timer fires
+    .takeUntil(timer)
+    .subscribe {
+        print($0)
+    }
+    .addDisposableTo(disposeBag)
+````
+
+The code above creates a basic tracker and makes it produce location updates at 5-seconds intervals for one minute, after which this tracker will automatically stop GPS services.
+
+Once the tracker is created, it's not yet doing any work and does not start GPS. It only does that at the moment of the first subscription.
+
+Furthermore, at the moment the tracker detects that there are no subscribers, it stops GPS automatically.
+
+If, after stopping the GPS, there would be another subscription on the tracker's `rx.location` outlet, the tracker would start GPS again and resume producing events.
+
+### Types of trackers
+
 There are three types of trackers available:
 
 - Standard tracker
 - Deferred location updates tracker
 - Significant location change tracker
 
-### Standard tracker
+#### Standard tracker
 
 Most usual kind of a location tracker.  You can specify desired accuracy, distance filter, and whether you want location updates to be delivered in background.
 
@@ -50,7 +82,7 @@ let standardTracker = LocationTracker.standardTracker(
 - iOS
 - macOS
 
-### Deferred location updates tracker
+#### Deferred location updates tracker
 
 This is a type of a tracker that allows GPS hardware to accumulate (batch) location updates internally until the distance/timeout thresholds are met, and only then deliver the whole batch to your app.
 
@@ -79,7 +111,7 @@ let deferringTracker = LocationTracker.deferredLocationUpdatesTracker(
 
 - iOS
 
-### Significant location change tracker
+#### Significant location change tracker
 
 A tracker that only reports significant changes in device's location.
 
@@ -103,31 +135,3 @@ let bigChangeTracker = LocationTracker.significantChangeTracker()
 
 - iOS
 - macOS
-
-### Use
-
-Once the tracker is created, it's not yet doing any work.  In order to get the location data from it you need to subscribe to its reactive outlet.
-
-**Example**
-
-````swift
-let disposeBag = DisposeBag()
-let timer = Observable<Int>.timer(60.0, scheduler: ConcurrentMainScheduler.instance)
-let tracker = LocationTracker.standardTracker()
-
-tracker.rx.location
-    // Get the updates every 5+ seconds
-    .distinctUntilChanged { (previous, current) -> Bool in
-        current.timestamp.timeIntervalSince(previous.timestamp) < 5.0
-    }
-    // ... and only until the timer expires after 1 minute
-    .takeUntil(timer)
-    .subscribe {
-        print($0)
-    }
-    .addDisposableTo(disposeBag)
-````
-
-The code above will create a basic tracker and make it produce location updates at 5 seconds intervals for 1 minute, after which this tracker will automatically stop GPS services (just at the moment the only subscriber is disposed of).
-
-If it were to have another subscription afterwards, then it would start GPS again and resume `rx.location` stream.
